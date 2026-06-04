@@ -1,289 +1,368 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAESTROOM — Премиальная мебель на заказ в Перми</title>
+    <title>MAESTROOM — Премиальная мебель на заказ</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,650;1,400&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
-        /* Кастомный скроллбар в премиум стиле */
-        ::-webkit-scrollbar {
-            width: 6px;
+        body { font-family: 'Montserrat', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        /* Плавное переключение страниц */
+        .page-section { display: none; opacity: 0; transform: translateY(15px); transition: all 0.5s ease-in-out; }
+        .page-section.active { display: block; opacity: 1; transform: translateY(0); }
+        
+        /* Премиум скроллбар */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-thumb { background: #b45309; border-radius: 3px; }
+
+        /* Эффект мерцания и затемнения для фонового изображения */
+        .video-overlay {
+            background: linear-gradient(to bottom, rgba(18,18,18,0.3) 0%, rgba(18,18,18,0.7) 60%, rgba(18,18,18,1) 100%);
         }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #b45309;
-            border-radius: 3px;
+
+        /* Общие правила плавности переходов для анимаций */
+        button, a, .nav-link, .portfolio-card, input, select, textarea {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>
-<body class="bg-[#0a0a0a] text-white font-sans antialiased overflow-x-hidden">
+<body class="bg-[#121212] text-gray-100 selection:bg-amber-700 selection:text-white min-h-screen flex flex-col overflow-x-hidden">
 
-    <header class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
+    <!-- НАВИГАЦИЯ (HEADER) -->
+    <header class="fixed top-0 left-0 w-full z-40 bg-[#121212]/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#page-main" class="font-serif text-2xl tracking-widest text-white hover:text-amber-500 transition-colors">
-                MAESTROOM<span class="text-amber-500">.</span>
-            </a>
-
-            <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest font-medium">
-                <a href="#page-main" class="text-amber-500 hover:text-amber-500 transition-colors">Главная</a>
-                <a href="#page-catalog" class="text-gray-400 hover:text-white transition-colors">Каталог</a>
-                <a href="#page-about" class="text-gray-400 hover:text-white transition-colors">О нас</a>
-                <a href="#page-contacts" class="text-gray-400 hover:text-white transition-colors">Контакты</a>
+            <button onclick="showPage('home')" class="text-2xl font-bold tracking-[0.2em] text-white uppercase focus:outline-none hover:text-amber-500 hover:scale-105 active:scale-95 transition-all">MAESTROOM</button>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium tracking-widest text-gray-400 uppercase">
+                <button onclick="showPage('about')" class="nav-link hover:text-white hover:translate-y-[-2px] focus:outline-none">О нас</button>
+                <button onclick="showPage('portfolio')" class="nav-link hover:text-white hover:translate-y-[-2px] focus:outline-none">Портфолио</button>
+                <button onclick="showPage('prices')" class="nav-link hover:text-white hover:translate-y-[-2px] focus:outline-none">Цены</button>
+                <button onclick="showPage('contacts')" class="nav-link hover:text-white hover:translate-y-[-2px] focus:outline-none">Контакты</button>
             </nav>
-
-            <button onclick="openModal('main-modal')" class="border border-amber-500/30 hover:border-amber-500 text-amber-500 px-5 py-2.5 text-xs uppercase tracking-widest rounded-sm transition-all duration-300">
-                Рассчитать проект
+            <button onclick="openModal('main-modal')" class="bg-amber-700 hover:bg-amber-600 hover:scale-105 hover:shadow-amber-600/20 text-white text-xs font-semibold tracking-widest uppercase px-6 py-3 transition-all duration-300 rounded-sm focus:outline-none active:scale-95 shadow-lg shadow-amber-900/20">
+                Расчет стоимости
             </button>
         </div>
     </header>
 
-    <main>
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="flex-grow pt-20">
 
-        <section id="page-main" class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-            <div class="absolute inset-0 bg-[#0c0c0c] z-0">
-                <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-30 filter grayscale">
-                    <source src="video/bg.mp4" type="video/mp4">
-                </video>
-                <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/50"></div>
-            </div>
-
-            <div class="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
-                <span class="text-amber-500 text-xs font-semibold tracking-[0.3em] uppercase block mb-4 animate-pulse">Эксклюзивная мебель ручной работы</span>
-                <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl text-white font-light tracking-tight leading-none mb-8">
-                    Создаем интерьеры <br><span class="italic text-gray-400 font-normal">мирового уровня</span> в Перми
-                </h1>
-                <p class="text-gray-400 font-light text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed">
-                    Дизайнерская мебель для тех, кто ценит бескомпромиссное качество, натуральные материалы и индивидуальность в каждой детали.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <a href="#page-catalog" class="w-full sm:w-auto text-center bg-amber-700 hover:bg-amber-600 text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-colors rounded-sm shadow-lg">
-                        Смотреть каталог
-                    </a>
-                    <button onclick="openModal('main-modal')" class="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white border border-white/10 text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-all rounded-sm backdrop-blur-sm">
-                        Обсудить идею
-                    </button>
+        <!-- ГЛАВНАЯ СТРАНИЦА -->
+        <section id="page-home" class="page-section active">
+            <!-- Главный Блок: Роскошный огромный диван -->
+            <div class="relative min-h-[85vh] flex items-center justify-center text-center px-6 overflow-hidden">
+                <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
+                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1920&q=80" alt="Роскошный огромный модульный диван Maestroom" class="w-full h-full object-cover">
                 </div>
-            </div>
-        </section>
-
-
-        <section id="page-catalog" class="py-24 border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-6">
-                <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Коллекции</span>
-                <h2 class="font-serif text-3xl sm:text-5xl text-white mb-12">Наши изделия</h2>
+                <div class="absolute inset-0 video-overlay z-0"></div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="group relative bg-[#111] border border-white/5 rounded-sm overflow-hidden shadow-xl hover:border-amber-500/20 transition-all duration-300">
-                        <div class="h-80 overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Премиальная кухня" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 group-hover:brightness-100">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                                <button onclick="openModal('main-modal')" class="bg-white text-black text-[10px] font-bold tracking-widest uppercase px-5 py-3 transition-transform translate-y-4 group-hover:translate-y-0 duration-300">Узнать стоимость</button>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <span class="text-amber-500 text-[10px] uppercase tracking-widest font-medium block mb-1">Кухни</span>
-                            <h3 class="text-white font-serif text-xl mb-2">Кухонный гарнитур «Brera Marble»</h3>
-                            <p class="text-gray-400 text-xs font-light leading-relaxed">Интегрированные фасады из натурального шпона дуба и вековечного мрамора.</p>
+                <div class="relative z-10 max-w-5xl mx-auto py-12">
+                    <span class="inline-block text-amber-500 text-xs font-semibold tracking-[0.3em] uppercase mb-4 animate-pulse">Ателье премиальной мебели</span>
+                    <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl text-white font-normal leading-tight mb-6">
+                        Мебель по <span class="italic text-amber-100">индивидуальному</span> дизайну
+                    </h1>
+                    <p class="text-gray-200 text-base sm:text-lg max-w-2xl mx-auto font-light mb-10">
+                        Создаем эксклюзивную мягкую и корпусную мебель по вашим размерам, чертежам или дизайн-проектам. Индивидуальный подход к каждому элементу интерьера.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                        <button onclick="openModal('main-modal')" class="w-full sm:w-auto bg-amber-700 hover:bg-amber-600 hover:scale-105 active:scale-95 text-white font-semibold text-sm tracking-wider uppercase px-8 py-4 transition-all duration-300 rounded-sm shadow-xl">
+                            Отправить plan на расчет
+                        </button>
+                        <button onclick="showPage('portfolio')" class="w-full sm:w-auto border border-white/20 hover:border-white hover:bg-white/5 hover:scale-105 active:scale-95 text-white font-semibold text-sm tracking-wider uppercase px-8 py-4 transition-all duration-300 rounded-sm bg-black/40 backdrop-blur-sm">
+                            Смотреть портфолио
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- БЛОК С ЦИФРАМИ И ИНФОРМАЦИОННЫМИ ПЛАШКАМИ -->
+            <div class="max-w-7xl mx-auto px-6 py-16 border-b border-white/5">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="p-6 bg-[#161616]/40 border border-white/5 rounded-sm backdrop-blur-sm hover:border-amber-700/40 hover:bg-[#161616]/70 transition-all duration-300 group">
+                        <div class="font-serif text-3xl sm:text-4xl text-amber-500 mb-2 group-hover:scale-110 transition-transform">10+ лет</div>
+                        <div class="text-xs uppercase tracking-widest text-gray-400 font-light">Опыт мастеров</div>
+                    </div>
+                    <div class="p-6 bg-[#161616]/40 border border-white/5 rounded-sm backdrop-blur-sm hover:border-amber-700/40 hover:bg-[#161616]/70 transition-all duration-300 group">
+                        <div class="font-serif text-3xl sm:text-4xl text-amber-500 mb-2 group-hover:scale-110 transition-transform">3 года</div>
+                        <div class="text-xs uppercase tracking-widest text-gray-400 font-light">Честная гарантия</div>
+                    </div>
+                    <div class="p-6 bg-[#161616]/40 border border-white/5 rounded-sm backdrop-blur-sm hover:border-amber-700/40 hover:bg-[#161616]/70 transition-all duration-300 group">
+                        <div class="font-serif text-3xl sm:text-4xl text-amber-500 mb-2 group-hover:scale-110 transition-transform">1500+</div>
+                        <div class="text-xs uppercase tracking-widest text-gray-400 font-light">Готовых проектов</div>
+                    </div>
+                    <div class="p-6 bg-[#161616]/40 border border-white/5 rounded-sm backdrop-blur-sm hover:border-amber-700/40 hover:bg-[#161616]/70 transition-all duration-300 group">
+                        <div class="font-serif text-3xl sm:text-4xl text-amber-500 mb-2 group-hover:scale-110 transition-transform">0%</div>
+                        <div class="text-xs uppercase tracking-widest text-gray-400 font-light">Переплат и комиссий</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЭТАПЫ РАБОТЫ -->
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <div class="text-center mb-16">
+                    <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Полный цикл реализации</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl text-white">Как мы создаем совершенство</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-[#161616] p-8 border border-white/5 rounded-sm hover:border-amber-700/50 hover:scale-[1.02] transition-all duration-300 group">
+                        <div class="w-12 h-12 bg-amber-950/40 border border-amber-800/30 flex items-center justify-center text-amber-500 font-serif text-xl mb-6 rounded-sm group-hover:bg-amber-700 group-hover:text-white transition-all">01</div>
+                        <h3 class="text-lg font-medium text-white mb-3">Проектирование и КД</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed">Создаем детальную конструкторскую документацию. Прорабатываем каждый стык, зазор и скрытый крепеж до миллиметра.</p>
+                    </div>
+                    <div class="bg-[#161616] p-8 border border-white/5 rounded-sm hover:border-amber-700/50 hover:scale-[1.02] transition-all duration-300 group">
+                        <div class="w-12 h-12 bg-amber-950/40 border border-amber-800/30 flex items-center justify-center text-amber-500 font-serif text-xl mb-6 rounded-sm group-hover:bg-amber-700 group-hover:text-white transition-all">02</div>
+                        <h3 class="text-lg font-medium text-white mb-3">Собственное производство</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed">Современные цеха в Перми. Никаких посредников. Распил, покраска в изолированных камерах, ручная сборка и жесткий технадзор.</p>
+                    </div>
+                    <div class="bg-[#161616] p-8 border border-white/5 rounded-sm hover:border-amber-700/50 hover:scale-[1.02] transition-all duration-300 group">
+                        <div class="w-12 h-12 bg-amber-950/40 border border-amber-800/30 flex items-center justify-center text-amber-500 font-serif text-xl mb-6 rounded-sm group-hover:bg-amber-700 group-hover:text-white transition-all">03</div>
+                        <h3 class="text-lg font-medium text-white mb-3">Премиальный монтаж</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed">Доставка в специализированной упаковке и сборка штатными мастерами с пылесосами. Идеально чистый результат.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Разделы направлений -->
+            <div class="max-w-7xl mx-auto px-6 pb-24">
+                <div class="text-center mb-12">
+                    <h2 class="font-serif text-3xl text-white mb-2">Направления нашей работы</h2>
+                    <p class="text-gray-400 text-xs tracking-widest uppercase font-light">Выберите интересующий раздел для деталей</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div onclick="showPage('promo-sofas')" class="group relative h-[400px] overflow-hidden rounded-sm border border-white/5 cursor-pointer shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1200&q=80" alt="Роскошные Диваны" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-75">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-8 flex flex-col justify-end">
+                            <h3 class="text-2xl text-white font-serif mb-2">Премиальные диваны и мягкие зоны</h3>
+                            <p class="text-amber-500 text-xs font-semibold tracking-widest uppercase group-hover:translate-x-3 transition-transform duration-300">Подробнее о производстве &rarr;</p>
                         </div>
                     </div>
-
-                    <div class="group relative bg-[#111] border border-white/5 rounded-sm overflow-hidden shadow-xl hover:border-amber-500/20 transition-all duration-300">
-                        <div class="h-80 overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80" alt="Гостиные" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 group-hover:brightness-100">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                                <button onclick="openModal('main-modal')" class="bg-white text-black text-[10px] font-bold tracking-widest uppercase px-5 py-3 transition-transform translate-y-4 group-hover:translate-y-0 duration-300">Узнать стоимость</button>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <span class="text-amber-500 text-[10px] uppercase tracking-widest font-medium block mb-1">Гостиные</span>
-                            <h3 class="text-white font-serif text-xl mb-2">ТВ-Консоль «Minimal Wood»</h3>
-                            <p class="text-gray-400 text-xs font-light leading-relaxed">Скрытые системы хранения, фрезерованные панели и парящий премиум-силуэт.</p>
-                        </div>
-                    </div>
-
-                    <div class="group relative bg-[#111] border border-white/5 rounded-sm overflow-hidden shadow-xl hover:border-amber-500/20 transition-all duration-300">
-                        <div class="h-80 overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80" alt="Спальни" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 group-hover:brightness-100">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                                <button onclick="openModal('main-modal')" class="bg-white text-black text-[10px] font-bold tracking-widest uppercase px-5 py-3 transition-transform translate-y-4 group-hover:translate-y-0 duration-300">Узнать стоимость</button>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <span class="text-amber-500 text-[10px] uppercase tracking-widest font-medium block mb-1">Спальни</span>
-                            <h3 class="text-white font-serif text-xl mb-2">Кровать «Soft Line Luxury»</h3>
-                            <p class="text-gray-400 text-xs font-light leading-relaxed">Изголовье из итальянского премиум-текстиля с латунными вставками ручной полировки.</p>
+                    <div onclick="showPage('promo-kitchens')" class="group relative h-[400px] overflow-hidden rounded-sm border border-white/5 cursor-pointer shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80" alt="Премиальная кухня Maestroom" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-75">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-8 flex flex-col justify-end">
+                            <h3 class="text-2xl text-white font-serif mb-2">Умные кухни и корпусные системы</h3>
+                            <p class="text-amber-500 text-xs font-semibold tracking-widest uppercase group-hover:translate-x-3 transition-transform duration-300">Подробнее о производстве &rarr;</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-
-        <section id="page-about" class="py-24 border-t border-white/5 bg-[#0c0c0c]/30">
+        <!-- ДЕТАЛЬНАЯ ПРОМО-СТРАНИЦА: ДИВАНЫ -->
+        <section id="page-promo-sofas" class="page-section py-16">
             <div class="max-w-7xl mx-auto px-6">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <button onclick="showPage('home')" class="text-amber-500 text-xs font-semibold tracking-widest uppercase mb-6 inline-block hover:text-amber-400 hover:translate-x-[-4px]">&larr; Вернуться назад</button>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
                     <div>
-                        <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Философия фабрики</span>
-                        <h2 class="font-serif text-3xl sm:text-5xl text-white mb-6">Качество, скрытое <br>в деталях</h2>
-                        <p class="text-gray-300 font-light text-sm sm:text-base mb-6 leading-relaxed">
-                            Мы основали Maestroom как мануфактуру, противопоставляющую себя массовому производству. Каждое наше изделие уникально и создается под конкретный архитектурный проект.
-                        </p>
-                        <p class="text-gray-400 font-light text-xs sm:text-sm mb-8 leading-relaxed">
-                            Собственные производственные цеха в Перми позволяют нам полностью контролировать процесс: от сушки редких пород древесины до ювелирной подгонки мебельной фурнитуры Blum и Hettich. Мы не идем на компромиссы за счет качества.
-                        </p>
-                        
-                        <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
-                            <div>
-                                <div class="font-serif text-3xl text-amber-500">10+</div>
-                                <div class="text-[10px] text-gray-400 uppercase tracking-wider mt-1">Лет опыта</div>
-                            </div>
-                            <div>
-                                <div class="font-serif text-3xl text-amber-500">500+</div>
-                                <div class="text-[10px] text-gray-400 uppercase tracking-wider mt-1">Проектов</div>
-                            </div>
-                            <div>
-                                <div class="font-serif text-3xl text-amber-500">100%</div>
-                                <div class="text-[10px] text-gray-400 uppercase tracking-wider mt-1">Эксклюзив</div>
-                            </div>
+                        <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Эксклюзивный комфорт</span>
+                        <h2 class="font-serif text-4xl sm:text-5xl text-white mb-6">Премиальная мягкая мебель</h2>
+                        <p class="text-gray-300 font-light leading-relaxed mb-6">Каждый диван от Maestroom — это произведение инженерного искусства. Мы рассчитываем эргономику посадки индивидуально под ваш рост, подбираем идеальную жесткость латексного наполнителя (HR-пена) и комбинируем пуховые прослойки для эффекта "обволакивания".</p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-3"><span class="text-amber-500 font-bold">✓</span><p class="text-gray-400 text-sm">Каркасы из сухой березовой фанеры и массива хвойных пород (никакого ДСП).</p></div>
+                            <div class="flex items-start gap-3"><span class="text-amber-500 font-bold">✓</span><p class="text-gray-400 text-sm">Ткани со всего мира: бельгийский шенилл, итальянское букле, натуральная кожа.</p></div>
+                            <div class="flex items-start gap-3"><span class="text-amber-500 font-bold">✓</span><p class="text-gray-400 text-sm">Пожизненная гарантия на целостность скрытых сварных каркасов.</p></div>
                         </div>
+                        <button onclick="openModal('main-modal')" class="bg-amber-700 hover:bg-amber-600 hover:scale-105 active:scale-95 text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-colors rounded-sm shadow-xl">Рассчитать концепт дивана</button>
                     </div>
-                    <div class="relative h-[450px] border border-white/10 p-2 rounded-sm">
-                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Производство мебели" class="w-full h-full object-cover filter grayscale contrast-115 rounded-sm">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80" class="rounded-sm w-full h-64 object-cover shadow-lg hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=600&q=80" class="rounded-sm w-full h-64 object-cover shadow-lg hover:scale-105 transition-transform duration-500 mt-8">
                     </div>
                 </div>
             </div>
         </section>
 
-
-        <section id="page-contacts" class="py-24 border-t border-white/5">
+        <!-- ДЕТАЛЬНАЯ ПРОМО-СТРАНИЦА: КУХНИ -->
+        <section id="page-promo-kitchens" class="page-section py-16">
             <div class="max-w-7xl mx-auto px-6">
-                <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Обратная связь</span>
-                <h2 class="font-serif text-3xl sm:text-5xl text-white mb-12">Свяжитесь с нами</h2>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <div class="space-y-8">
-                        <div>
-                            <h3 class="text-amber-500 text-xs font-semibold tracking-widest uppercase mb-2">Адрес шоурума и производства</h3>
-                            <p class="text-gray-300 font-light text-base leading-relaxed">
-                                г. Пермь, ул. Производственная, д. 12, корпус 3<br>
-                                <span class="text-xs text-gray-500">(Пожалуйста, согласуйте визит заранее по телефону)</span>
-                            </p>
+                <button onclick="showPage('home')" class="text-amber-500 text-xs font-semibold tracking-widest uppercase mb-6 inline-block hover:text-amber-400 hover:translate-x-[-4px]">&larr; Вернуться назад</button>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                    <div class="order-2 lg:order-1 grid grid-cols-2 gap-4">
+                        <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" class="rounded-sm w-full h-64 object-cover shadow-lg hover:scale-105 transition-transform duration-500" alt="Премиальная кухня">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" class="rounded-sm w-full h-64 object-cover shadow-lg hover:scale-105 transition-transform duration-500 mt-[-32px]" alt="Дизайнерская кухня">
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Технологичное превосходство</span>
+                        <h2 class="font-serif text-4xl sm:text-5xl text-white mb-6">Высокотехнологичные кухни</h2>
+                        <p class="text-gray-300 font-light leading-relaxed mb-6">Кухни Maestroom создаются по принципу "архитектурной чистоты линии". Никаких видимых ручек, лишних зазоров или неэффективных углов. Мы интегрируем передовые механизмы плавного закрывания Blum (Австрия) и Hettich (Германия) последнего поколения.</p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-3"><span class="text-amber-500 font-bold">✓</span><p class="text-gray-400 text-sm">Влагостойкий МДФ повышенной плотности с лазерной кромкой.</p></div>
+                            <div class="flex items-start gap-3"><span class="text-amber-500 font-bold">✓</span><p class="text-gray-400 text-sm">Столешницы из широкоформатного керамогранита и кварцевого агломерата.</p></div>
+                            <div class="flex items-start gap-3"><span class="text-amber-500 font-bold">✓</span><p class="text-gray-400 text-sm">Интегрированная умная светодиодная подсветка с датчиками взмаха руки.</p></div>
                         </div>
+                        <button onclick="openModal('main-modal')" class="bg-amber-700 hover:bg-amber-600 hover:scale-105 active:scale-95 text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-colors rounded-sm shadow-xl">Спроектировать умную кухню</button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                        <div>
-                            <h3 class="text-amber-500 text-xs font-semibold tracking-widest uppercase mb-2">Телефоны и мессенджеры</h3>
-                            <p class="text-gray-300 font-light text-xl mb-1 hover:text-amber-500 transition-colors">
-                                <a href="tel:+79991112233">+7 (999) 111-22-33</a>
-                            </p>
-                            <p class="text-gray-400 font-light text-sm">Прием звонков: ежедневно с 09:00 до 21:00</p>
-                            
-                            <div class="flex gap-4 mt-4">
-                                <a href="#" class="px-4 py-2 border border-white/10 hover:border-amber-500 hover:text-amber-500 text-xs uppercase tracking-wider rounded-sm transition-all">Telegram</a>
-                                <a href="#" class="px-4 py-2 border border-white/10 hover:border-amber-500 hover:text-amber-500 text-xs uppercase tracking-wider rounded-sm transition-all">WhatsApp</a>
-                            </div>
+        <!-- ПОРТФОЛИО -->
+        <section id="page-portfolio" class="page-section py-16">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-12 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div>
+                        <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Наше портфолио</span>
+                        <h2 class="font-serif text-3xl sm:text-5xl text-white">Выполненные работы</h2>
+                    </div>
+                    <p class="text-gray-400 font-light max-w-xs text-sm">Все изделия спроектированы индивидуально под интерьеры заказчиков.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Работа 1 -->
+                    <div class="bg-[#161616] border border-white/5 rounded-sm overflow-hidden group shadow-lg hover:border-amber-700/30 transition-all duration-300">
+                        <div class="h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </div>
-
-                        <div>
-                            <h3 class="text-amber-500 text-xs font-semibold tracking-widest uppercase mb-2">Электронная почта</h3>
-                            <p class="text-gray-300 font-light text-base">info@maestroom.ru</p>
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-white mb-1">Диван «Гранд Лаунж»</h3>
+                            <p class="text-gray-400 text-xs font-light mb-4">Материал: Текстурированное букле, независимый пружинный блок</p>
+                            <button onclick="openModal('main-modal')" class="text-amber-500 text-xs font-semibold uppercase tracking-wider hover:text-amber-400 hover:translate-x-1 transition-transform">Узнать стоимость аналогичного &rarr;</button>
                         </div>
                     </div>
-
-                    <div class="relative h-[350px] bg-[#161616] border border-white/5 rounded-sm overflow-hidden flex flex-col items-center justify-center p-8 text-center shadow-xl group hover:border-amber-700/30 transition-all duration-300">
-                        <div class="absolute inset-0 bg-cover bg-center opacity-20 filter grayscale contrast-125" style="background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="relative z-10">
-                            <span class="text-3xl mb-4 block">📍</span>
-                            <h4 class="text-white font-medium mb-2">Интерактивная карта Перми</h4>
-                            <p class="text-gray-400 text-xs font-light max-w-xs mx-auto mb-6">Здесь будет подключена интерактивная Яндекс.Карта с точной геолокацией фабрики Maestroom.</p>
-                            <button onclick="openModal('main-modal')" class="bg-amber-700 hover:bg-amber-600 text-white text-[10px] font-semibold tracking-widest uppercase px-6 py-3 transition-colors rounded-sm shadow-md">
-                                Проложить маршрут
-                            </button>
+                    <!-- Работа 2 -->
+                    <div class="bg-[#161616] border border-white/5 rounded-sm overflow-hidden group shadow-lg hover:border-amber-700/30 transition-all duration-300">
+                        <div class="h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-white mb-1">Кабинет из натурального шпона</h3>
+                            <p class="text-gray-400 text-xs font-light mb-4">Интегрированные столы, скрытые системы хранения</p>
+                            <button onclick="openModal('main-modal')" class="text-amber-500 text-xs font-semibold uppercase tracking-wider hover:text-amber-400 hover:translate-x-1 transition-transform">Узнать стоимость аналогичного &rarr;</button>
+                        </div>
+                    </div>
+                    <!-- Работа 3 -->
+                    <div class="bg-[#161616] border border-white/5 rounded-sm overflow-hidden group shadow-lg hover:border-amber-700/30 transition-all duration-300">
+                        <div class="h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Кухонный гарнитур Maestroom">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-white mb-1">Кухонный гарнитур «Графит»</h3>
+                            <p class="text-gray-400 text-xs font-light mb-4">Фасады МДФ эмаль, интегрированный профиль и фурнитура Blum</p>
+                            <button onclick="openModal('main-modal')" class="text-amber-500 text-xs font-semibold uppercase tracking-wider hover:text-amber-400 hover:translate-x-1 transition-transform">Узнать стоимость аналогичного &rarr;</button>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- ЦЕНЫ -->
+        <section id="page-prices" class="page-section py-16">
+            <div class="max-w-4xl mx-auto px-6">
+                <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Прозрачный расчет</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white mb-4">Базовые тарифы мастерской</h2>
+                <p class="text-gray-400 font-light text-sm mb-12">Конечная стоимость зависит от выбранных тканей, сложности проекта и фурнитуры. Работаем строго по договору.</p>
+                
+                <div class="space-y-6">
+                    <div class="p-6 bg-[#161616] border border-white/5 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-amber-700/30 transition-all duration-300">
+                        <div>
+                            <h3 class="text-white font-medium text-base">Мягкая мебель (Диваны / Кресла)</h3>
+                            <p class="text-gray-400 text-xs font-light mt-1">Огромный выбор тканей (антикоготь, букле, натуральная кожа)</p>
+                        </div>
+                        <span class="font-serif text-xl text-amber-500 whitespace-nowrap">от 205 000 ₽</span>
+                    </div>
+                    <div class="p-6 bg-[#161616] border border-white/5 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-amber-700/30 transition-all duration-300">
+                        <div>
+                            <h3 class="text-white font-medium text-base">Стеновые шпонированные панели</h3>
+                            <p class="text-gray-400 text-xs font-light mt-1">Шпон дуба, ореха, ясеня, МДФ основа высокой прочности</p>
+                        </div>
+                        <span class="font-serif text-xl text-amber-500 whitespace-nowrap">от 14 500 ₽ / м²</span>
+                    </div>
+                </div>
+                <div class="mt-12 text-center bg-amber-950/20 border border-amber-900/30 p-8 rounded-sm">
+                    <h4 class="text-white font-medium mb-2">У вас есть готовый дизайн-проект или эскиз от руки?</h4>
+                    <p class="text-gray-400 text-xs font-light mb-6">Пришлите его нам — инженеры сделают точную калькуляцию за 1 рабочий день.</p>
+                    <button onclick="openModal('main-modal')" class="bg-amber-700 hover:bg-amber-600 hover:scale-105 active:scale-95 text-white text-xs font-semibold tracking-widest uppercase px-6 py-3 transition-colors rounded-sm shadow-md">Загрузить проект на расчет</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- О НАС -->
+        <section id="page-about" class="page-section py-16">
+            <div class="max-w-7xl mx-auto px-6">
+                <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Мастерская Maestroom</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white mb-12">Искренне любим свое дело</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6 text-gray-400 font-light leading-relaxed text-base">
+                        <p>Мы — узкоспециализированная команда профессионалов. Каждый из нас пришел в мебельную сферу более 10 лет назад, пройдя путь от простых сборщиков до создателей сложнейших интерьерных конструкций.</p>
+                        <p>Наше главное отличие — фанатичное отношение к качеству и швам. Если это диван, то линии будут безупречно ровными, а ткань натянута без единой лишней складки. Если это корпусная мебель — зазоры будут идеальными до долей миллиметра.</p>
+                    </div>
+                    
+                    <div class="flex items-center justify-center p-4">
+                        <div class="w-80 h-80 rounded-full border-2 border-white/80 bg-transparent flex flex-col items-center justify-center p-8 text-center shadow-2xl relative overflow-hidden group hover:border-amber-500 transition-all duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-100 group-hover:from-amber-600/10 transition-colors duration-500"></div>
+                            <span class="text-5xl font-bold tracking-[0.25em] text-white uppercase mb-2 font-serif group-hover:scale-110 group-hover:text-amber-500 transition-all duration-500">M</span>
+                            <span class="text-sm tracking-[0.4em] text-white uppercase font-semibold group-hover:text-amber-400 transition-colors">MAESTROOM</span>
+                            <span class="text-[10px] tracking-widest text-white/60 uppercase mt-4 font-light">СОЗДАНО В 2016 ⎮ ПЕРМЬ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- КОНТАКТЫ -->
+        <section id="page-contacts" class="page-section py-16">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Связь</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white mb-6">Ждем вас в гости</h2>
+                <p class="text-gray-400 font-light text-base mb-8">г. Пермь, ул. Производственная, д. 12, корпус 3</p>
+                <p class="text-2xl text-amber-500 font-medium"><a href="tel:+79991112233">+7 (999) 111-22-33</a></p>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-[#050505] border-t border-white/5 py-8 text-center text-xs text-gray-500 tracking-wider">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p>© 2026 MAESTROOM. Все права защищены.</p>
-            <p class="font-light">Разработка премиум интерьеров ручной работы.</p>
-        </div>
-    </footer>
-
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ЗАЯВОК -->
     <div id="main-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
-        <div class="bg-[#111] border border-white/10 p-8 rounded-sm max-w-md w-full relative transform scale-95 transition-transform duration-300 shadow-2xl">
+        <div class="bg-[#161616] border border-white/10 p-8 rounded-sm max-w-md w-full relative transform scale-95 transition-transform duration-300 shadow-2xl">
             <button onclick="closeModal('main-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-light transition-colors">&times;</button>
-            
             <span class="text-amber-500 text-[10px] font-semibold tracking-widest uppercase block mb-1">Расчет стоимости</span>
             <h3 class="font-serif text-2xl text-white mb-6">Обсудить ваш проект</h3>
             
             <form onsubmit="handleFormSubmit(event)" class="space-y-4">
                 <div>
                     <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-2">Ваше имя</label>
-                    <input type="text" required class="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
+                    <input type="text" name="name" required class="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
                 </div>
                 <div>
                     <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-2">Телефон</label>
-                    <input type="tel" placeholder="+7 (___) ___-__-__" required class="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
+                    <input type="tel" name="phone" required class="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
                 </div>
                 <div>
-                    <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-2">Комментарий к проекту</label>
-                    <textarea rows="3" placeholder="Например: Кухня в современном стиле..." class="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors resize-none"></textarea>
+                    <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-2">Комментарий</label>
+                    <textarea name="message" rows="3" class="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors resize-none"></textarea>
                 </div>
-                <button type="submit" class="w-full bg-amber-700 hover:bg-amber-600 text-white text-xs font-semibold tracking-widest uppercase py-4 transition-colors rounded-sm mt-2 shadow-md">
+                <button type="submit" class="w-full bg-amber-700 hover:bg-amber-600 text-white text-xs font-semibold tracking-widest uppercase py-4 transition-colors rounded-sm shadow-md">
                     Отправить запрос
                 </button>
             </form>
         </div>
     </div>
 
+    <!-- СКРИПТЫ -->
     <script>
-        // Подсветка активных пунктов меню при скролле страницы
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('nav a');
-            
-            let currentSectionId = '';
+        // Глобальная настройка: ВСТАВЬ СВОЙ URL НИЖЕ СЮДА
+        const BACKEND_URL = 'https://your-endpoint.com/api/leads'; 
+
+        // Логика переключения вкладок
+        function showPage(pageId) {
+            const sections = document.querySelectorAll('.page-section');
             sections.forEach(sec => {
-                const sectionTop = sec.offsetTop;
-                if (window.scrollY >= sectionTop - 120) {
-                    currentSectionId = sec.getAttribute('id');
-                }
+                sec.classList.remove('active');
             });
+            const targetSection = document.getElementById(`page-${pageId}`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
 
-            navLinks.forEach(link => {
-                link.classList.remove('text-amber-500');
-                link.classList.add('text-gray-400');
-                if (link.getAttribute('href') === `#${currentSectionId}`) {
-                    link.classList.remove('text-gray-400');
-                    link.classList.add('text-amber-500');
-                }
-            });
-        });
-
-        // Логика работы модальных окон
+        // Модальные окна
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
@@ -301,11 +380,7 @@
             const modal = document.getElementById(modalId);
             if (modal) {
                 modal.classList.add('opacity-0');
-                const transformEl = modal.querySelector('.transform');
-                if (transformEl) {
-                    transformEl.classList.remove('scale-100');
-                    transformEl.classList.add('scale-95');
-                }
+                modal.querySelector('.transform').classList.add('scale-95');
                 setTimeout(() => {
                     modal.classList.remove('flex');
                     modal.classList.add('hidden');
@@ -313,12 +388,35 @@
             }
         }
 
-        // Обработка отправки формы заказа
+        // Универсальная отправка абсолютно всех форм на твой URL
         function handleFormSubmit(e) {
             e.preventDefault();
-            alert('Спасибо за заявку! Наш дизайнер свяжется с вами в течение 30 минут для обсуждения проекта.');
-            closeModal('main-modal');
-            e.target.reset();
+            const form = e.target;
+            const formData = new FormData(form);
+
+            // Автоматически добавляем в данные инфу о том, с какой страницы/кнопки пришла заявка
+            formData.append('source', document.title);
+
+            fetch(BACKEND_URL, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Спасибо! Заявка успешно отправлена.');
+                    closeModal('main-modal');
+                    form.reset();
+                } else {
+                    alert('Ошибка сервера при отправке. Попробуйте еще раз.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ошибка сети. Проверьте подключение к интернету.');
+            });
         }
     </script>
 </body>
