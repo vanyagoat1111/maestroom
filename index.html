@@ -30,11 +30,14 @@
         button, a, .nav-link, .portfolio-card, input, select, textarea {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        /* Анимация появления модального окна */
+        .modal-backdrop { transition: opacity 0.3s ease-in-out; }
+        .modal-content { transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
     </style>
 </head>
 <body class="bg-[#121212] text-gray-100 selection:bg-amber-700 selection:text-white min-h-screen flex flex-col overflow-x-hidden">
 
-    <!-- НАВИГАЦИЯ (HEADER) -->
     <header class="fixed top-0 left-0 w-full z-40 bg-[#121212]/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <button onclick="showPage('home')" class="text-2xl font-bold tracking-[0.2em] text-white uppercase focus:outline-none hover:text-amber-500 hover:scale-105 active:scale-95 transition-all">MAESTROOM</button>
@@ -50,12 +53,9 @@
         </div>
     </header>
 
-    <!-- ОСНОВНОЙ КОНТЕНТ -->
     <main class="flex-grow pt-20">
 
-        <!-- ГЛАВНАЯ СТРАНИЦА -->
         <section id="page-home" class="page-section active">
-            <!-- Главный Блок: Роскошный огромный диван -->
             <div class="relative min-h-[85vh] flex items-center justify-center text-center px-6 overflow-hidden">
                 <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
                     <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1920&q=80" alt="Роскошный огромный модульный диван Maestroom" class="w-full h-full object-cover">
@@ -81,7 +81,6 @@
                 </div>
             </div>
 
-            <!-- БЛОК С ЦИФРАМИ И ИНФОРМАЦИОННЫМИ ПЛАШКАМИ -->
             <div class="max-w-7xl mx-auto px-6 py-16 border-b border-white/5">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                     <div class="p-6 bg-[#161616]/40 border border-white/5 rounded-sm backdrop-blur-sm hover:border-amber-700/40 hover:bg-[#161616]/70 transition-all duration-300 group">
@@ -103,7 +102,6 @@
                 </div>
             </div>
 
-            <!-- ЭТАПЫ РАБОТЫ -->
             <div class="max-w-7xl mx-auto px-6 py-20">
                 <div class="text-center mb-16">
                     <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Полный цикл реализации</span>
@@ -123,12 +121,11 @@
                     <div class="bg-[#161616] p-8 border border-white/5 rounded-sm hover:border-amber-700/50 hover:scale-[1.02] transition-all duration-300 group">
                         <div class="w-12 h-12 bg-amber-950/40 border border-amber-800/30 flex items-center justify-center text-amber-500 font-serif text-xl mb-6 rounded-sm group-hover:bg-amber-700 group-hover:text-white transition-all">03</div>
                         <h3 class="text-lg font-medium text-white mb-3">Премиальный монтаж</h3>
-                        <p class="text-gray-400 text-sm font-light leading-relaxed">Доставка в специализированной упаковке и сборка штатными мастерами с пылесосами. Идеально чистый результат.</p>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed">Доставка в специализированной упаковке and сборка штатными мастерами с пылесосами. Идеально чистый результат.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Разделы направлений -->
             <div class="max-w-7xl mx-auto px-6 pb-24">
                 <div class="text-center mb-12">
                     <h2 class="font-serif text-3xl text-white mb-2">Направления нашей работы</h2>
@@ -153,7 +150,6 @@
             </div>
         </section>
 
-        <!-- ДЕТАЛЬНАЯ ПРОМО-СТРАНИЦА: ДИВАНЫ -->
         <section id="page-promo-sofas" class="page-section py-16">
             <div class="max-w-7xl mx-auto px-6">
                 <button onclick="showPage('home')" class="text-amber-500 text-xs font-semibold tracking-widest uppercase mb-6 inline-block hover:text-amber-400 hover:translate-x-[-4px]">&larr; Вернуться назад</button>
@@ -177,7 +173,6 @@
             </div>
         </section>
 
-        <!-- ДЕТАЛЬНАЯ ПРОМО-СТРАНИЦА: КУХНИ -->
         <section id="page-promo-kitchens" class="page-section py-16">
             <div class="max-w-7xl mx-auto px-6">
                 <button onclick="showPage('home')" class="text-amber-500 text-xs font-semibold tracking-widest uppercase mb-6 inline-block hover:text-amber-400 hover:translate-x-[-4px]">&larr; Вернуться назад</button>
@@ -201,7 +196,6 @@
             </div>
         </section>
 
-        <!-- ПОРТФОЛИО -->
         <section id="page-portfolio" class="page-section py-16">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="mb-12 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -213,7 +207,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Работа 1 -->
                     <div class="bg-[#161616] border border-white/5 rounded-sm overflow-hidden group shadow-lg hover:border-amber-700/30 transition-all duration-300">
                         <div class="h-64 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -224,7 +217,6 @@
                             <button onclick="openModal('sofa-modal')" class="text-amber-500 text-xs font-semibold uppercase tracking-wider hover:text-amber-400 hover:translate-x-1 transition-transform">Узнать стоимость аналогичного &rarr;</button>
                         </div>
                     </div>
-                    <!-- Работа 2 -->
                     <div class="bg-[#161616] border border-white/5 rounded-sm overflow-hidden group shadow-lg hover:border-amber-700/30 transition-all duration-300">
                         <div class="h-64 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -235,7 +227,6 @@
                             <button onclick="openModal('main-modal')" class="text-amber-500 text-xs font-semibold uppercase tracking-wider hover:text-amber-400 hover:translate-x-1 transition-transform">Узнать стоимость аналогичного &rarr;</button>
                         </div>
                     </div>
-                    <!-- Работа 3 -->
                     <div class="bg-[#161616] border border-white/5 rounded-sm overflow-hidden group shadow-lg hover:border-amber-700/30 transition-all duration-300">
                         <div class="h-64 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Кухонный гарнитур Maestroom">
@@ -246,7 +237,6 @@
                             <button onclick="openModal('kitchen-modal')" class="text-amber-500 text-xs font-semibold uppercase tracking-wider hover:text-amber-400 hover:translate-x-1 transition-transform">Узнать стоимость аналогичного &rarr;</button>
                         </div>
                     </div>
-                    <!-- Работа 4 -->
                     <div class="bg-[#161616] border border-white/5 rounded-sm overflow-hidden group shadow-lg hover:border-amber-700/30 transition-all duration-300">
                         <div class="h-64 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -257,7 +247,6 @@
                             <button onclick="openModal('main-modal')" class="text-amber-500 text-xs font-semibold uppercase tracking-wider hover:text-amber-400 hover:translate-x-1 transition-transform">Узнать стоимость аналогичного &rarr;</button>
                         </div>
                     </div>
-                    <!-- Работа 5 -->
                     <div class="bg-[#161616] border border-white/5 rounded-sm overflow-hidden group shadow-lg hover:border-amber-700/30 transition-all duration-300">
                         <div class="h-64 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -268,7 +257,6 @@
                             <button onclick="openModal('main-modal')" class="text-amber-500 text-xs font-semibold uppercase tracking-wider hover:text-amber-400 hover:translate-x-1 transition-transform">Узнать стоимость аналогичного &rarr;</button>
                         </div>
                     </div>
-                    <!-- Работа 6 -->
                     <div class="bg-[#161616] border border-white/5 rounded-sm overflow-hidden group shadow-lg hover:border-amber-700/30 transition-all duration-300">
                         <div class="h-64 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Обеденный стол Maestroom">
@@ -283,7 +271,6 @@
             </div>
         </section>
 
-        <!-- ЦЕНЫ -->
         <section id="page-prices" class="page-section py-16">
             <div class="max-w-4xl mx-auto px-6">
                 <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Прозрачный расчет</span>
@@ -319,12 +306,11 @@
                 <div class="mt-12 text-center bg-amber-950/20 border border-amber-900/30 p-8 rounded-sm">
                     <h4 class="text-white font-medium mb-2">У вас есть готовый дизайн-проект или эскиз от руки?</h4>
                     <p class="text-gray-400 text-xs font-light mb-6">Пришлите его нам — инженеры сделают точную калькуляцию за 1 рабочий день.</p>
-                    <button onclick="openModal('project-modal')" class="bg-amber-700 hover:bg-amber-600 hover:scale-105 active:scale-95 text-white text-xs font-semibold tracking-widest uppercase px-6 py-3 transition-colors rounded-sm shadow-md">Загрузить проект на расчет</button>
+                    <button onclick="openModal('main-modal')" class="bg-amber-700 hover:bg-amber-600 hover:scale-105 active:scale-95 text-white text-xs font-semibold tracking-widest uppercase px-6 py-3 transition-colors rounded-sm shadow-md">Загрузить проект на расчет</button>
                 </div>
             </div>
         </section>
 
-        <!-- О НАС -->
         <section id="page-about" class="page-section py-16">
             <div class="max-w-7xl mx-auto px-6">
                 <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Мастерская Maestroom</span>
@@ -348,399 +334,182 @@
                 </div>
             </div>
         </section>
-
-        <!-- КОНТАКТЫ -->
-        <section id="page-contacts" class="page-section py-16">
-            <div class="max-w-7xl mx-auto px-6">
-                <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Обратная связь</span>
-                <h2 class="font-serif text-3xl sm:text-5xl text-white mb-12">Контакты офисов и мастерских</h2>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-                    <div class="bg-[#161616] p-8 border border-white/5 rounded-sm shadow-xl hover:border-amber-700/20 transition-colors">
-                        <h3 class="text-white font-medium text-lg mb-6 flex items-center gap-2">
-                            <span class="text-amber-500">📍</span> Наши адреса
-                        </h3>
-                        <ul class="space-y-4 text-sm text-gray-400 font-light">
-                            <li><strong class="text-gray-200 block text-xs uppercase tracking-wider mb-1">Пермь:</strong>ул. Пушкарская, д. 138, корп. 1, оф. 101</li>
-                            <li><strong class="text-gray-200 block text-xs uppercase tracking-wider mb-1">Москва:</strong>Комсомольский проспект, 16/2, стр. 3</li>
-                            <li><strong class="text-gray-200 block text-xs uppercase tracking-wider mb-1">Сочи:</strong>ул. Орджоникидзе, 24</li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-[#161616] p-8 border border-white/5 rounded-sm shadow-xl hover:border-amber-700/20 transition-colors">
-                        <h3 class="text-white font-medium text-lg mb-6 flex items-center gap-2">
-                            <span class="text-amber-500">📞</span> Телефоны и Email
-                        </h3>
-                        <ul class="space-y-4 text-sm text-gray-400 font-light">
-                            <li><strong class="text-gray-200 block text-xs uppercase tracking-wider mb-1">Основной номер:</strong><a href="tel:+73422592045" class="text-amber-500 hover:text-amber-400 hover:underline text-base font-medium">+7 (342) 259-20-45</a></li>
-                            <li><strong class="text-gray-200 block text-xs uppercase tracking-wider mb-1">Мобильный / Мессенджеры:</strong><a href="tel:+79641902045" class="text-amber-500 hover:text-amber-400 hover:underline">+7 (964) 190-20-45</a></li>
-                            <li><strong class="text-gray-200 block text-xs uppercase tracking-wider mb-1">Для предложений:</strong><a href="mailto:info@maestroom.ru" class="text-amber-500 hover:text-amber-400 hover:underline">info@maestroom.ru</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-[#161616] p-8 border border-white/5 rounded-sm shadow-xl flex flex-col justify-between hover:border-amber-700/20 transition-colors">
-                        <div>
-                            <h3 class="text-white font-medium text-lg mb-4 flex items-center gap-2">
-                                <span class="text-amber-500">⏰</span> Режим работы
-                            </h3>
-                            <p class="text-sm text-gray-400 font-light leading-relaxed">Принимаем заявки, консультируем и ждем вас в шоурумах ежедневно с 9:00 до 18:00.</p>
-                        </div>
-                        <div class="pt-6 border-t border-white/5 mt-4">
-                            <span class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Официальные соцсети</span>
-                            <div class="flex space-x-4 text-xs font-semibold text-amber-500 uppercase">
-                                <a href="https://vk.com/maestroomperm" target="_blank" class="hover:text-amber-400 hover:translate-y-[-1px]">ВКонтакте</a>
-                                <a href="https://t.me/+79630160569" target="_blank" class="hover:text-amber-400 hover:translate-y-[-1px]">Telegram</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ИСПРАВЛЕННАЯ КАРТА: Добавлен строгий параметр pm2blm (красная метка) прямо на координаты Пушкарской, 138 -->
-                <div class="w-full h-96 rounded-sm overflow-hidden border border-white/5 shadow-2xl relative">
-                    <iframe src="https://yandex.ru/map-widget/v1/?ll=56.281861%2C58.006325&z=16&pt=56.281861%2C58.006325%2Cpm2blm~56.281861%2C58.006325&mode=whatshere" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="filter: grayscale(0.8) contrast(1.1) brightness(0.9);" class="absolute inset-0"></iframe>
-                </div>
-            </div>
-        </section>
-
     </main>
 
-    <!-- ПОДВАЛ (FOOTER) -->
-    <footer class="bg-[#0b0b0b] text-gray-600 py-12 border-t border-white/5 text-xs">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-6">
-            <div class="flex flex-col items-center sm:items-start gap-1">
-                <span class="text-gray-400 tracking-widest font-medium text-sm">© 2026 MAESTROOM</span>
-                <p class="text-gray-500 font-light">Ателье премиальной мебели по индивидуальным проектам.</p>
-            </div>
-            <div class="text-center sm:text-right text-gray-500 font-light space-y-1">
-                <p>ООО «Маэструм». Все права защищены.</p>
-                <p class="text-gray-600">ОГРН 1185958024570 ⎮ ИНН 5906154573</p>
-            </div>
-        </div>
-    </footer>
-
-
-    <!-- ================= ОКНА МОДАЛЬНЫХ ФОРМ ================= -->
-
-    <!-- ОКНО 1: ОСНОВНОЙ КВИЗ-МОДАЛ -->
-    <div id="main-modal" class="modal-window fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all">
-        <div class="bg-[#1c1c1c] w-full max-w-lg p-8 rounded-sm border border-white/10 relative shadow-2xl">
-            <button onclick="closeModal('main-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-light focus:outline-none hover:scale-110">&times;</button>
-            <h3 class="font-serif text-2xl text-white mb-1">Расчет стоимости проекта</h3>
-            <p class="text-gray-400 text-xs font-light mb-6">Выберите категорию, чтобы получить точную калькуляцию.</p>
+    <div id="crm-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div onclick="closeModal()" class="modal-backdrop absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0"></div>
+        
+        <div class="modal-content relative bg-[#161616] border border-white/10 w-full max-w-lg p-8 rounded-sm shadow-2xl z-10 opacity-0 scale-95 transition-all">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white text-xl focus:outline-none">&times;</button>
             
-            <form onsubmit="submitGenericForm(event, 'Общий расчет')" class="space-y-6">
+            <span id="modal-subtitle" class="text-amber-500 text-[10px] font-semibold tracking-widest uppercase block mb-1">Maestroom Ателье</span>
+            <h3 id="modal-title" class="font-serif text-2xl text-white mb-6">Расчет стоимости проекта</h3>
+            
+            <form id="crm-lead-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <input type="hidden" id="form-project-type" value="Общий расчет">
+
                 <div>
-                    <label class="block text-xs font-semibold tracking-widest uppercase text-amber-500 mb-2">Что необходимо изготовить?</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <label class="border border-white/10 bg-[#121212] p-3 text-sm text-center rounded-sm cursor-pointer block hover:border-amber-700 hover:scale-[1.02] transition-all has-[:checked]:border-amber-500 has-[:checked]:bg-amber-950/20">
-                            <input type="radio" name="main-furniture-type" value="Кухня" checked class="hidden"> Кухонный гарнитур
-                        </label>
-                        <label class="border border-white/10 bg-[#121212] p-3 text-sm text-center rounded-sm cursor-pointer block hover:border-amber-700 hover:scale-[1.02] transition-all has-[:checked]:border-amber-500 has-[:checked]:bg-amber-950/20">
-                            <input type="radio" name="main-furniture-type" value="Шкаф" class="hidden"> Скрытый шкаф / Гардероб
-                        </label>
-                        <label class="border border-white/10 bg-[#121212] p-3 text-sm text-center rounded-sm cursor-pointer block hover:border-amber-700 hover:scale-[1.02] transition-all has-[:checked]:border-amber-500 has-[:checked]:bg-amber-950/20">
-                            <input type="radio" name="main-furniture-type" value="Панели" class="hidden"> Стеновые панели
-                        </label>
-                        <label class="border border-white/10 bg-[#121212] p-3 text-sm text-center rounded-sm cursor-pointer block hover:border-amber-700 hover:scale-[1.02] transition-all has-[:checked]:border-amber-500 has-[:checked]:bg-amber-950/20">
-                            <input type="radio" name="main-furniture-type" value="Другое" class="hidden"> Другое / Свой вариант
-                        </label>
+                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2 font-medium">Ваше имя *</label>
+                    <input type="text" id="form-name" required class="w-full bg-[#202020] border border-white/10 px-4 py-3 rounded-sm text-sm text-white focus:outline-none focus:border-amber-700">
+                </div>
+
+                <div>
+                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2 font-medium">Телефон для связи *</label>
+                    <input type="tel" id="form-phone" placeholder="+7 (___) ___-__-__" required class="w-full bg-[#202020] border border-white/10 px-4 py-3 rounded-sm text-sm text-white focus:outline-none focus:border-amber-700">
+                </div>
+
+                <div id="dynamic-options-container">
                     </div>
-                </div>
+
                 <div>
-                    <label class="block text-xs font-semibold tracking-widest uppercase text-amber-500 mb-2">Ориентировочные габариты или пожелания</label>
-                    <textarea id="main-comment" rows="2" placeholder="Опишите ваши идеи или размеры..." class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm resize-none"></textarea>
+                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2 font-medium">Комментарий / пожелания</label>
+                    <textarea id="form-comment" rows="3" placeholder="Укажите размеры или особенности помещения..." class="w-full bg-[#202020] border border-white/10 px-4 py-3 rounded-sm text-sm text-white focus:outline-none focus:border-amber-700 resize-none"></textarea>
                 </div>
-                <div class="space-y-3 pt-2 border-t border-white/5">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <input type="text" id="main-name" required placeholder="Ваше имя" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm">
-                        <input type="tel" id="main-phone" required placeholder="Номер телефона" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm">
-                    </div>
-                </div>
-                <button type="submit" class="w-full bg-amber-700 hover:bg-amber-600 hover:scale-[1.02] active:scale-95 text-white font-semibold text-xs tracking-widest uppercase py-4 transition-all rounded-sm shadow-lg">
-                    Получить расчет стоимости
+
+                <button type="submit" class="w-full bg-amber-700 hover:bg-amber-600 text-white font-semibold text-xs tracking-widest uppercase py-4 transition-all duration-300 rounded-sm shadow-xl active:scale-95 mt-2">
+                    Отправить план на расчет
                 </button>
             </form>
         </div>
     </div>
 
-
-    <!-- ОКНО 2: РАСЧЕТ ДЛЯ МЯГКОЙ МЕБЕЛИ -->
-    <div id="sofa-modal" class="modal-window fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all">
-        <div class="bg-[#1c1c1c] w-full max-w-lg p-8 rounded-sm border border-white/10 relative shadow-2xl">
-            <button onclick="closeModal('sofa-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-light focus:outline-none hover:scale-110">&times;</button>
-            <h3 class="font-serif text-2xl text-white mb-1">Конфигуратор премиального дивана</h3>
-            <p class="text-gray-400 text-xs font-light mb-6">Спецификация мягкой зоны по вашим критериям эргономики.</p>
-            
-            <form onsubmit="submitGenericForm(event, 'Концепт Дивана')" class="space-y-5">
-                <div>
-                    <label class="block text-xs font-semibold tracking-widest uppercase text-amber-500 mb-2">Форма и конструкция:</label>
-                    <select id="sofa-shape" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white text-sm rounded-sm focus:border-amber-700 focus:outline-none">
-                        <option value="Прямой диван">Прямой минималистичный диван</option>
-                        <option value="Угловой диван">Угловой (Г-образный)</option>
-                        <option value="П-образный диван">Большой П-образный модульный комплекс</option>
-                        <option value="Кушетка / Кресло">Эксклюзивное кресло / Оттоманка</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold tracking-widest uppercase text-amber-500 mb-2">Желаемый тип премиум-ткани:</label>
-                    <select id="sofa-fabric" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white text-sm rounded-sm focus:border-amber-700 focus:outline-none">
-                        <option value="Итальянское букле">Итальянское фактурное Букле</option>
-                        <option value="Бельгийский шенилл">Износостойкий бельгийский Шенилл</option>
-                        <option value="Матовый велюр">Плотный водоотталкивающий Велюр</option>
-                        <option value="Натуральная кожа">Натуральная итальянская кожа Nappa</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold tracking-widest uppercase text-amber-500 mb-2">Ориентировочная длина (в см) или особенности наполнения:</label>
-                    <input type="text" id="sofa-length" placeholder="Например: длина 280 см, ультрамягкая посадка" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm">
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-white/5">
-                    <input type="text" id="sofa-name" required placeholder="Ваше имя" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm">
-                    <input type="tel" id="sofa-phone" required placeholder="Номер телефона" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm">
-                </div>
-                <button type="submit" class="w-full bg-amber-700 hover:bg-amber-600 hover:scale-[1.02] active:scale-95 text-white font-semibold text-xs tracking-widest uppercase py-4 transition-all rounded-sm shadow-lg">
-                    Рассчитать параметры комфорта
-                </button>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- ОКНО 3: МОДАЛ ЗАГРУЗКИ ГОТОВОГО ПРОЕКТА -->
-    <div id="project-modal" class="modal-window fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all">
-        <div class="bg-[#1c1c1c] w-full max-w-lg p-8 rounded-sm border border-white/10 relative shadow-2xl">
-            <button onclick="closeModal('project-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-light focus:outline-none hover:scale-110">&times;</button>
-            <h3 class="font-serif text-2xl text-white mb-1">Загрузка дизайн-проекта</h3>
-            <p class="text-gray-400 text-xs font-light mb-6">Прикрепите файлы проекта, эскиза или планировки для калькуляции инженерами.</p>
-            
-            <form onsubmit="submitGenericForm(event, 'Загрузка проекта')" class="space-y-5">
-                <div class="border-2 border-dashed border-white/10 bg-[#121212] p-6 text-center rounded-sm hover:border-amber-500 hover:bg-[#121212]/80 transition-all cursor-pointer relative group">
-                    <input type="file" id="project-file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                    <span class="text-2xl block mb-2 group-hover:scale-110 transition-transform">📁</span>
-                    <p class="text-sm text-gray-300 font-medium">Перетащите файлы сюда или нажмите для выбора</p>
-                    <p class="text-gray-500 text-xs font-light mt-1">PDF, JPG, PNG, файлы чертежей</p>
-                </div>
-                
-                <div class="text-center text-xs text-gray-500 uppercase tracking-wider">— ИЛИ —</div>
-                
-                <div>
-                    <label class="block text-xs font-semibold tracking-widest uppercase text-amber-500 mb-2">Ссылка на проект (Яндекс.Диск, Облако, Google Drive):</label>
-                    <input type="url" id="project-link" placeholder="https://disk.yandex.ru/d/..." class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm">
-                </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-white/5">
-                    <input type="text" id="project-name" required placeholder="Ваше имя" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm">
-                    <input type="tel" id="project-phone" required placeholder="Номер телефона" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm">
-                </div>
-                
-                <button type="submit" class="w-full bg-amber-700 hover:bg-amber-600 hover:scale-[1.02] active:scale-95 text-white font-semibold text-xs tracking-widest uppercase py-4 transition-all rounded-sm shadow-lg">
-                    Передать файлы на просчет инженерам
-                </button>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- ОКНО 4: КОНФИГУРАТОР УМНОЙ КУХНИ -->
-    <div id="kitchen-modal" class="modal-window fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all">
-        <div class="bg-[#1c1c1c] w-full max-w-lg p-8 rounded-sm border border-white/10 relative shadow-2xl">
-            <button onclick="closeModal('kitchen-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-light focus:outline-none hover:scale-110">&times;</button>
-            <h3 class="font-serif text-2xl text-white mb-1">Конфигуратор Умной Кухни</h3>
-            <p class="text-gray-400 text-xs font-light mb-6">Спроектируйте рабочее пространство с идеальной архитектурой линий.</p>
-            
-            <form onsubmit="submitGenericForm(event, 'Проект Умной Кухни')" class="space-y-5">
-                <div>
-                    <label class="block text-xs font-semibold tracking-widest uppercase text-amber-500 mb-2">Планировка гарнитура:</label>
-                    <select id="kitchen-layout" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white text-sm rounded-sm focus:border-amber-700 focus:outline-none">
-                        <option value="Линейная с островом">Прямая линия с кухонным островом</option>
-                        <option value="Угловая">Угловая архитектура (Г-образная)</option>
-                        <option value="П-образная">П-образная со встроенной барной стойкой</option>
-                        <option value="Скрытая ниша">Скрытая кухня со сдвижными фасадами-купе</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold tracking-widest uppercase text-amber-500 mb-2">Материал рабочей зоны (столешницы):</label>
-                    <select id="kitchen-top" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white text-sm rounded-sm focus:border-amber-700 focus:outline-none">
-                        <option value="Кварцевый агломерат">Кварцевый агломерат Avant Quartz</option>
-                        <option value="Широкоформатный керамогранит">Широкоформатная керамика (Испания)</option>
-                        <option value="Акриловый камень">Бесшовный акриловый камень Grandex</option>
-                        <option value="Массив дерева">Влагостойкий массив ценных пород под маслом</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold tracking-widest uppercase text-amber-500 mb-2">Интегрируемая встроенная техника и фурнитура:</label>
-                    <textarea id="kitchen-tech" rows="2" placeholder="Например: встроенная вытяжка в столешницу, петли Blum Servo-Drive, профили Gola..." class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm resize-none"></textarea>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-white/5">
-                    <input type="text" id="kitchen-name" required placeholder="Ваше имя" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm">
-                    <input type="tel" id="kitchen-phone" required placeholder="Номер телефона" class="w-full bg-[#121212] border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-amber-700 text-sm rounded-sm">
-                </div>
-                <button type="submit" class="w-full bg-amber-700 hover:bg-amber-600 hover:scale-[1.02] active:scale-95 text-white font-semibold text-xs tracking-widest uppercase py-4 transition-all rounded-sm shadow-lg">
-                    Запустить инженерное проектирование
-                </button>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- СКРИПТЫ ВЗАИМОДЕЙСТВИЯ -->
     <script>
-        // Функция для переключения страниц
+        // НАСТОЯЩИЙ РАБОЧИЙ URL ТВОЕГО ВЕБХУКА
+        const CRM_WEBHOOK_URL = "https://webhook.site/eefad7dd-e999-4954-bf98-b89407927660";
+
+        // ФУНКЦИЯ ПЕРЕКЛЮЧЕНИЯ СТРАНИЦ
         function showPage(pageId) {
-            const sections = document.querySelectorAll('.page-section');
-            sections.forEach(sec => {
-                sec.classList.remove('active');
-            });
-            
-            const activeSection = document.getElementById('page-' + pageId);
-            if (activeSection) {
-                activeSection.classList.add('active');
-            }
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Управление специализированными модальными окнами
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        // Закрытие модального окна
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = '';
-            }
-        }
-
-        // Закрытие окон при клике вне контура формы
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-window')) {
-                event.target.style.display = 'none';
-                document.body.style.overflow = '';
-            }
-        }
-
-        // Универсальная отправка для всех типов форм
-        function submitGenericForm(e, formType) {
-            e.preventDefault();
-            
-            let name = "";
-            let phone = "";
-            
-            if (formType === 'Общий расчет') {
-                name = document.getElementById('main-name').value;
-                phone = document.getElementById('main-phone').value;
-            } else if (formType === 'Концепт Дивана') {
-                name = document.getElementById('sofa-name').value;
-                phone = document.getElementById('sofa-phone').value;
-            } else if (formType === 'Загрузка проекта') {
-                name = document.getElementById('project-name').value;
-                phone = document.getElementById('project-phone').value;
-            } else if (formType === 'Проект Умной Кухни') {
-                name = document.getElementById('kitchen-name').value;
-                phone = document.getElementById('kitchen-phone').value;
-            }
-
-            alert(`Благодарим, ${name}! Ваша заявка из раздела "${formType}" успешно зарегистрирована. Конструкторский отдел Maestroom уже взял её в работу. Свяжемся с вами по номеру ${phone} в течение 30 минут.`);
-            
-            e.target.reset();
-            const modals = document.querySelectorAll('.modal-window');
-            modals.forEach(m => m.style.display = 'none');
-            document.body.style.overflow = '';
-        }
-    </script>
-<script>
-        // ФУНКЦИЯ ПЕРЕКЛЮЧЕНИЯ СТРАНИЦ (у тебя она уже частично работает)
-        function showPage(pageId) {
-            // Скрываем все секции
             document.querySelectorAll('.page-section').forEach(section => {
                 section.classList.remove('active');
             });
-            // Показываем нужную
             const target = document.getElementById('page-' + pageId);
             if (target) {
                 target.classList.add('active');
             }
-            // Прокручиваем наверх при смене страницы
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ВРЕМЕННЫЕ ФУНКЦИИ ДЛЯ МОДАЛЬНЫХ ОКОН (чтобы код не выдавал ошибки)
+        // ОТКРЫТИЕ МОДАЛЬНОГО ОКНА С НАСТРОЙКОЙ СЛУЖЕБНЫХ ДАННЫХ
         function openModal(modalId) {
-            console.log('Открытие окна:', modalId);
-            // Здесь будет твоя логика открытия поп-апа (добавление класса flex/block)
-            // Для теста мы можем сразу симулировать отправку, как будто клиент заполнил форму:
-            if(confirm(`Симуляция: Открыть окно "${modalId}" и отправить тестовую заявку в CRM?`)) {
-                simulateFormSubmit(modalId);
+            const modal = document.getElementById('crm-modal');
+            const backdrop = modal.querySelector('.modal-backdrop');
+            const content = modal.querySelector('.modal-content');
+            const title = document.getElementById('modal-title');
+            const subtitle = document.getElementById('modal-subtitle');
+            const typeInput = document.getElementById('form-project-type');
+            const optionsContainer = document.getElementById('dynamic-options-container');
+
+            // Сбрасываем форму перед открытием
+            document.getElementById('crm-lead-form').reset();
+
+            // Настраиваем контент под конкретный тип кнопки
+            if (modalId === 'sofa-modal') {
+                title.innerText = "Концепт мягкой мебели";
+                subtitle.innerText = "Эксклюзивные диваны Maestroom";
+                typeInput.value = "Премиальный диван";
+                optionsContainer.innerHTML = `
+                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2 font-medium">Категория текстиля</label>
+                    <select id="form-custom-option" class="w-full bg-[#202020] border border-white/10 px-4 py-3 rounded-sm text-sm text-white focus:outline-none focus:border-amber-700">
+                        <option value="Итальянское букле">Итальянское букле (Premium)</option>
+                        <option value="Бельгийский шенилл">Бельгийский шенилл (Luxury)</option>
+                        <option value="Натуральная кожа">Натуральная кожа класса Nappa</option>
+                    </select>
+                `;
+            } else if (modalId === 'kitchen-modal') {
+                title.innerText = "Проектирование умной кухни";
+                subtitle.innerText = "Высокотехнологичные системы Maestroom";
+                typeInput.value = "Умная кухня";
+                optionsContainer.innerHTML = `
+                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2 font-medium">Материал фасадов/столешницы</label>
+                    <select id="form-custom-option" class="w-full bg-[#202020] border border-white/10 px-4 py-3 rounded-sm text-sm text-white focus:outline-none focus:border-amber-700">
+                        <option value="Натуральный шпон + широкоформатный керамогранит">Натуральный шпон + широкоформатный керамогранит</option>
+                        <option value="Влагостойкий МДФ эмаль + Кварцевый агломерат">Влагостойкий МДФ эмаль + Кварцевый агломерат</option>
+                        <option value="Архитектурное стекло в алюминиевом профиле">Архитектурное стекло в алюминиевом профиле</option>
+                    </select>
+                `;
+            } else {
+                title.innerText = "Индивидуальный расчет стоимости";
+                subtitle.innerText = "Комплексная калькуляция интерьера";
+                typeInput.value = "Комплексный проект";
+                optionsContainer.innerHTML = `
+                    <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2 font-medium">Интересующее направление</label>
+                    <select id="form-custom-option" class="w-full bg-[#202020] border border-white/10 px-4 py-3 rounded-sm text-sm text-white focus:outline-none focus:border-amber-700">
+                        <option value="Корпусная мебель / Гардеробные">Корпусная мебель / Гардеробные</option>
+                        <option value="Мягкие стеновые панели & Мебель для спальни">Мягкие стеновые панели & Мебель для спальни</option>
+                        <option value="Полный комплект мебели под ключ">Полный комплект мебели под ключ по дизайн-проекту</option>
+                    </select>
+                `;
             }
+
+            // Плавное открытие через классы Tailwind
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.replace('opacity-0', 'opacity-100');
+                content.classList.replace('opacity-0', 'opacity-100');
+                content.classList.replace('scale-95', 'scale-100');
+            }, 10);
         }
 
-        // ==========================================
-        // ГЛАВНАЯ ТЕХНИЧЕСКАЯ ЧАСТЬ: ИНТЕГРАЦИЯ API
-        // ==========================================
+        // ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА
+        function closeModal() {
+            const modal = document.getElementById('crm-modal');
+            const backdrop = modal.querySelector('.modal-backdrop');
+            const content = modal.querySelector('.modal-content');
 
-        // Сюда ты вставишь URL, который выдаст тебе Albato, Make.com или Webhook.site
-        const CRM_WEBHOOK_URL = "https://webhook.site/eefad7dd-e999-4954-bf98-b89407927660";
+            backdrop.classList.replace('opacity-100', 'opacity-0');
+            content.classList.replace('opacity-100', 'opacity-0');
+            content.classList.replace('scale-100', 'scale-95');
 
-        /**
-         * Универсальная функция отправки заявки на Webhook (в CRM и Telegram)
-         * @param {Object} orderData - Объект с данными клиента и заказа
-         */
-        async function sendOrderToCRM(orderData) {
-            if (CRM_WEBHOOK_URL === "ДЛЯ_ТЕСТА_ВСТАВЬ_СЮДА_URL") {
-                alert("Ошибка: Сначала создайте тестовый URL и вставьте его в переменную CRM_WEBHOOK_URL в коде!");
-                return;
-            }
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // СБОР ДАННЫХ И ОТПРАВКА НА СЕРВЕР ПРИ КЛИКЕ НА КНОПКУ "ОТПРАВИТЬ ЗАЯВКУ"
+        async function handleFormSubmit(event) {
+            event.preventDefault(); // Останавливаем перезагрузку страницы
+
+            // Считываем реальные значения полей, которые заполнил клиент
+            const nameValue = document.getElementById('form-name').value;
+            const phoneValue = document.getElementById('form-phone').value;
+            const projectTypeValue = document.getElementById('form-project-type').value;
+            const customOptionSelect = document.getElementById('form-custom-option');
+            const customOptionValue = customOptionSelect ? customOptionSelect.value : "Не выбрано";
+            const commentValue = document.getElementById('form-comment').value;
+
+            // Формируем чистый JSON-объект для отправки в Albato / amoCRM
+            const customerLeadData = {
+                source: "Официальный сайт Maestroom (GitHub Pages)",
+                timestamp: new Date().toLocaleString("ru-RU"),
+                name: nameValue,
+                phone: phoneValue,
+                project_type: projectTypeValue,
+                details: {
+                    selected_material_or_category: customOptionValue,
+                    user_comment: commentValue || "Без комментария"
+                }
+            };
+
+            console.log("Отправка собранных данных на вебхук...", customerLeadData);
 
             try {
-                // Отправляем данные методом POST в формате JSON
+                // Шлем POST запрос в сеть
                 const response = await fetch(CRM_WEBHOOK_URL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(orderData)
+                    body: JSON.stringify(customerLeadData)
                 });
 
-                if (response.ok) {
-                    alert(`Благодарим, ${orderData.name}! Заявка на "${orderData.project_type}" успешно передана дизайнеру. Ожидайте звонка.`);
-                    // Здесь можно перенаправить пользователя на страницу спасибо:
-                    // showPage('success');
-                } else {
-                    throw new Error("Сервер вернул ошибку при отправке");
-                }
+                // Если сервер принял данные успешно
+                closeModal();
+                alert(`Уважаемый ${nameValue}, ваша заявка на "${projectTypeValue}" принята! Инженер-конструктор Maestroom свяжется с вами по номеру ${phoneValue} в течение часа.`);
+                
             } catch (error) {
-                console.error("Ошибка отправки в CRM:", error);
-                alert("Произошла техническая ошибка при отправке. Пожалуйста, свяжитесь с нами по телефону.");
+                console.error("Ошибка при отправке вебхука:", error);
+                alert("Произошла сетевая ошибка. Заявка не ушла. Пожалуйста, попробуйте обновить страницу сайта (Ctrl+F5) или позвоните нам напрямую.");
             }
-        }
-
-        /**
-         * Функция-перехватчик формы (симуляция того, что клиент заполнил поля в модальном окне)
-         */
-        function simulateFormSubmit(modalType) {
-            // Формируем структуру данных, которую ждет CRM-система
-            const testOrder = {
-                source: "Официальный сайт Maestroom (GitHub Pages)",
-                date: new Date().toLocaleString("ru-RU"),
-                name: "Иван Тестовый",
-                phone: "+7 (999) 111-22-33",
-                project_type: modalType === 'kitchen-modal' ? "Умная кухня" : "Премиальный диван",
-                details: {
-                    material: "Выбран премиум-сегмент текстиля/фасадов",
-                    estimated_budget: modalType === 'kitchen-modal' ? "от 310 000 ₽" : "от 205 000 ₽",
-                    comment: "Заявка создана через кнопку быстрого расчета на сайте."
-                }
-            };
-
-            console.log("Отправка объекта в CRM коннектор...", testOrder);
-            sendOrderToCRM(testOrder);
         }
     </script>
 </body>
