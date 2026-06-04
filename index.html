@@ -53,9 +53,9 @@
     <header class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <!-- Логотип -->
-            <a href="#" onclick="showPage('main')" class="font-serif text-2xl tracking-widest text-white hover:text-amber-500 transition-colors">
+            <button onclick="showPage('main')" class="font-serif text-2xl tracking-widest text-white hover:text-amber-500 transition-colors bg-transparent border-none cursor-pointer">
                 MAESTROOM<span class="text-amber-500">.</span>
-            </a>
+            </button>
 
             <!-- Меню -->
             <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest font-medium">
@@ -77,7 +77,7 @@
 
         <!-- 1. ГЛАВНАЯ СТРАНИЦА -->
         <section id="page-main" class="page-section active relative h-[calc(100vh-80px)] min-h-[500px] flex items-center justify-center overflow-hidden">
-            <!-- Видео-фон (Если файла нет, останется премиальный темный фон) -->
+            <!-- Видео-фон -->
             <div class="absolute inset-0 bg-[#0c0c0c] z-0">
                 <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-30 filter grayscale">
                     <source src="video/bg.mp4" type="video/mp4">
@@ -119,7 +119,7 @@
                     <div class="group relative bg-[#111] border border-white/5 rounded-sm overflow-hidden shadow-xl hover:border-amber-500/20 transition-all duration-300">
                         <div class="h-80 overflow-hidden relative">
                             <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Премиальная кухня" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 group-hover:brightness-100">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-xs">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
                                 <button onclick="openModal('main-modal')" class="bg-white text-black text-[10px] font-bold tracking-widest uppercase px-5 py-3 transition-transform translate-y-4 group-hover:translate-y-0 duration-300">Узнать стоимость</button>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                     <div class="group relative bg-[#111] border border-white/5 rounded-sm overflow-hidden shadow-xl hover:border-amber-500/20 transition-all duration-300">
                         <div class="h-80 overflow-hidden relative">
                             <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80" alt="Гостиные" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 group-hover:brightness-100">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-xs">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
                                 <button onclick="openModal('main-modal')" class="bg-white text-black text-[10px] font-bold tracking-widest uppercase px-5 py-3 transition-transform translate-y-4 group-hover:translate-y-0 duration-300">Узнать стоимость</button>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
                     <div class="group relative bg-[#111] border border-white/5 rounded-sm overflow-hidden shadow-xl hover:border-amber-500/20 transition-all duration-300">
                         <div class="h-80 overflow-hidden relative">
                             <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80" alt="Спальни" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 group-hover:brightness-100">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-xs">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
                                 <button onclick="openModal('main-modal')" class="bg-white text-black text-[10px] font-bold tracking-widest uppercase px-5 py-3 transition-transform translate-y-4 group-hover:translate-y-0 duration-300">Узнать стоимость</button>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
         </section>
 
 
-        <!-- 4. СТРАНИЦА КОНТАКТОВ (ИСПРАВЛЕННАЯ И ПОЛНАЯ) -->
+        <!-- 4. СТРАНИЦА КОНТАКТОВ -->
         <section id="page-contacts" class="page-section py-16">
             <div class="max-w-7xl mx-auto px-6">
                 <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Обратная связь</span>
@@ -318,11 +318,13 @@
                 link.classList.add('text-gray-400');
             });
 
-            // Находим нажатую кнопку и подсвечиваем её
-            const clickedBtn = event?.currentTarget;
-            if (clickedBtn && clickedBtn.classList.contains('nav-link')) {
-                clickedBtn.classList.remove('text-gray-400');
-                clickedBtn.classList.add('text-amber-500');
+            // Находим нажатую кнопку через объект события и подсвечиваем её
+            if (window.event && window.event.currentTarget) {
+                const clickedBtn = window.event.currentTarget;
+                if (clickedBtn && clickedBtn.classList.contains('nav-link')) {
+                    clickedBtn.classList.remove('text-gray-400');
+                    clickedBtn.classList.add('text-amber-500');
+                }
             }
         }
 
@@ -340,12 +342,16 @@
             }
         }
 
+        // Исправленная функция закрытия окон
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
                 modal.classList.add('opacity-0');
-                modal.querySelector('.transform').classList.remove('scale-100');
-                modal.querySelector('.transform').classList.add('scale-95');
+                const transformEl = modal.querySelector('.transform');
+                if (transformEl) {
+                    transformEl.classList.remove('scale-100');
+                    transformEl.classList.add('scale-95');
+                }
                 setTimeout(() => {
                     modal.classList.remove('flex');
                     modal.classList.add('hidden');
@@ -356,7 +362,7 @@
         // Обработка отправки формы заказа
         function handleFormSubmit(e) {
             e.preventDefault();
-            alert('Спасибо за заявку! Наш дизайнер свяжется с вами в течение 30 минут для обсуждения проекта макета.');
+            alert('Спасибо за заявку! Наш дизайнер свяжется с вами в течение 30 минут для обсуждения проекта.');
             closeModal('main-modal');
             e.target.reset();
         }
