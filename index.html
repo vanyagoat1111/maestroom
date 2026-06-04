@@ -21,12 +21,12 @@
         ::-webkit-scrollbar-track { background: #121212; }
         ::-webkit-scrollbar-thumb { background: #b45309; border-radius: 3px; }
 
-        /* Эффект мерцания и затемнения для фонового изображения */
+        /* Эффект затемнения для фонового изображения */
         .video-overlay {
             background: linear-gradient(to bottom, rgba(18,18,18,0.3) 0%, rgba(18,18,18,0.7) 60%, rgba(18,18,18,1) 100%);
         }
 
-        /* Общие правила плавности переходов для анимаций */
+        /* Общие правила плавности переходов */
         button, a, .nav-link, .portfolio-card, input, select, textarea {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -55,7 +55,7 @@
 
         <!-- ГЛАВНАЯ СТРАНИЦА -->
         <section id="page-home" class="page-section active">
-            <!-- Главный Блок: Роскошный огромный диван -->
+            <!-- Главный Блок -->
             <div class="relative min-h-[85vh] flex items-center justify-center text-center px-6 overflow-hidden">
                 <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
                     <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1920&q=80" alt="Роскошный огромный модульный диван Maestroom" class="w-full h-full object-cover">
@@ -72,7 +72,7 @@
                     </p>
                     <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
                         <button onclick="openModal('main-modal')" class="w-full sm:w-auto bg-amber-700 hover:bg-amber-600 hover:scale-105 active:scale-95 text-white font-semibold text-sm tracking-wider uppercase px-8 py-4 transition-all duration-300 rounded-sm shadow-xl">
-                            Отправить plan на расчет
+                            Отправить план на расчет
                         </button>
                         <button onclick="showPage('portfolio')" class="w-full sm:w-auto border border-white/20 hover:border-white hover:bg-white/5 hover:scale-105 active:scale-95 text-white font-semibold text-sm tracking-wider uppercase px-8 py-4 transition-all duration-300 rounded-sm bg-black/40 backdrop-blur-sm">
                             Смотреть портфолио
@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <!-- БЛОК С ЦИФРАМИ И ИНФОРМАЦИОННЫМИ ПЛАШКАМИ -->
+            <!-- БЛОК С ЦИФРАМИ -->
             <div class="max-w-7xl mx-auto px-6 py-16 border-b border-white/5">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                     <div class="p-6 bg-[#161616]/40 border border-white/5 rounded-sm backdrop-blur-sm hover:border-amber-700/40 hover:bg-[#161616]/70 transition-all duration-300 group">
@@ -167,7 +167,7 @@
                             <div class="flex items-start gap-3"><span class="text-amber-500 font-bold">✓</span><p class="text-gray-400 text-sm">Ткани со всего мира: бельгийский шенилл, итальянское букле, натуральная кожа.</p></div>
                             <div class="flex items-start gap-3"><span class="text-amber-500 font-bold">✓</span><p class="text-gray-400 text-sm">Пожизненная гарантия на целостность скрытых сварных каркасов.</p></div>
                         </div>
-                        <button onclick="openModal('main-modal')" class="bg-amber-700 hover:bg-amber-600 hover:scale-105 active:scale-95 text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-colors rounded-sm shadow-xl">Рассчитать концепт дивана</button>
+                        <button onclick="openModal('sofa-modal')" class="bg-amber-700 hover:bg-amber-600 hover:scale-105 active:scale-95 text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-colors rounded-sm shadow-xl">Рассчитать концепт дивана</button>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80" class="rounded-sm w-full h-64 object-cover shadow-lg hover:scale-105 transition-transform duration-500">
@@ -195,7 +195,7 @@
                             <div class="flex items-start gap-3"><span class="text-amber-500 font-bold">✓</span><p class="text-gray-400 text-sm">Столешницы из широкоформатного керамогранита и кварцевого агломерата.</p></div>
                             <div class="flex items-start gap-3"><span class="text-amber-500 font-bold">✓</span><p class="text-gray-400 text-sm">Интегрированная умная светодиодная подсветка с датчиками взмаха руки.</p></div>
                         </div>
-                        <button onclick="openModal('main-modal')" class="bg-amber-700 hover:bg-amber-600 hover:scale-105 active:scale-95 text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-colors rounded-sm shadow-xl">Спроектировать умную кухню</button>
+                        <button onclick="openModal('kitchen-modal')" class="bg-amber-700 hover:bg-amber-600 hover:scale-105 active:scale-95 text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-colors rounded-sm shadow-xl">Спроектировать умную кухню</button>
                     </div>
                 </div>
             </div>
@@ -317,14 +317,15 @@
 
     </main>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ЗАЯВОК -->
-    <div id="main-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+    <!-- МОДАЛЬНОЕ ОКНО 1: ОБЩИЙ РАСЧЕТ -->
+    <div id="main-modal" class="modal-element fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
         <div class="bg-[#161616] border border-white/10 p-8 rounded-sm max-w-md w-full relative transform scale-95 transition-transform duration-300 shadow-2xl">
             <button onclick="closeModal('main-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-light transition-colors">&times;</button>
             <span class="text-amber-500 text-[10px] font-semibold tracking-widest uppercase block mb-1">Расчет стоимости</span>
             <h3 class="font-serif text-2xl text-white mb-6">Обсудить ваш проект</h3>
             
             <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <input type="hidden" name="form_type" value="Общая заявка">
                 <div>
                     <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-2">Ваше имя</label>
                     <input type="text" name="name" required class="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
@@ -344,9 +345,77 @@
         </div>
     </div>
 
+    <!-- МОДАЛЬНОЕ ОКНО 2: РАСЧЕТ ДИВАНА -->
+    <div id="sofa-modal" class="modal-element fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div class="bg-[#161616] border border-white/10 p-8 rounded-sm max-w-md w-full relative transform scale-95 transition-transform duration-300 shadow-2xl">
+            <button onclick="closeModal('sofa-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-light transition-colors">&times;</button>
+            <span class="text-amber-500 text-[10px] font-semibold tracking-widest uppercase block mb-1">Мягкая мебель</span>
+            <h3 class="font-serif text-2xl text-white mb-6">Концепт дивана</h3>
+            
+            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <input type="hidden" name="form_type" value="Расчет дивана">
+                <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-2">Примерные размеры (Ш х Д)</label>
+                    <input type="text" name="dimensions" placeholder="например, 250х180 см" class="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-2">Материал обивки</label>
+                    <select name="material" class="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
+                        <option value="Букле / Шенилл">Премиум Букле / Шенилл</option>
+                        <option value="Велюр">Износостойкий Велюр</option>
+                        <option value="Кожа">Натуральная кожа (Италия)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-2">Телефон для связи</label>
+                    <input type="tel" name="phone" required class="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
+                </div>
+                <button type="submit" class="w-full bg-amber-700 hover:bg-amber-600 text-white text-xs font-semibold tracking-widest uppercase py-4 transition-colors rounded-sm shadow-md">
+                    Получить расчет дивана
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО 3: РАСЧЕТ КУХНИ -->
+    <div id="kitchen-modal" class="modal-element fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div class="bg-[#161616] border border-white/10 p-8 rounded-sm max-w-md w-full relative transform scale-95 transition-transform duration-300 shadow-2xl">
+            <button onclick="closeModal('kitchen-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-light transition-colors">&times;</button>
+            <span class="text-amber-500 text-[10px] font-semibold tracking-widest uppercase block mb-1">Корпусная мебель</span>
+            <h3 class="font-serif text-2xl text-white mb-6">Проект умной кухни</h3>
+            
+            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <input type="hidden" name="form_type" value="Расчет кухни">
+                <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-2">Конфигурация</label>
+                    <select name="layout" class="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
+                        <option value="Прямая">Прямая кухня</option>
+                        <option value="Угловая">Угловая (Г-образная)</option>
+                        <option value="С островом">С кухонным островом</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-2">Материал столешницы</label>
+                    <select name="tabletop" class="w-full bg-[#1c1c1c] border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
+                        <option value="Кварцевый агломерат">Кварцевый агломерат</option>
+                        <option value="Керамогранит">Широкоформатный керамогранит</option>
+                        <option value="Влагостойкий пластик">Влагостойкий пластик премиум</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-2">Телефон для связи</label>
+                    <input type="tel" name="phone" required class="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm rounded-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
+                </div>
+                <button type="submit" class="w-full bg-amber-700 hover:bg-amber-600 text-white text-xs font-semibold tracking-widest uppercase py-4 transition-colors rounded-sm shadow-md">
+                    Спроектировать кухню
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- СКРИПТЫ -->
     <script>
-        // Глобальная настройка: ВСТАВЬ СВОЙ URL НИЖЕ СЮДА
+        // ЗАМЕНИ ЭТОТ АДРЕС НА СВОЙ URL (например, Formspree, Getform или бэкенд-сервер)
         const BACKEND_URL = 'https://your-endpoint.com/api/leads'; 
 
         // Логика переключения вкладок
@@ -388,14 +457,14 @@
             }
         }
 
-        // Универсальная отправка абсолютно всех форм на твой URL
+        // Автоматический перехват и отправка всех форм на твой бэкенд
         function handleFormSubmit(e) {
             e.preventDefault();
             const form = e.target;
             const formData = new FormData(form);
 
-            // Автоматически добавляем в данные инфу о том, с какой страницы/кнопки пришла заявка
-            formData.append('source', document.title);
+            // Добавляем к данным название страницы, с которой ушла форма
+            formData.append('page_source', document.title);
 
             fetch(BACKEND_URL, {
                 method: 'POST',
@@ -406,16 +475,20 @@
             })
             .then(response => {
                 if (response.ok) {
-                    alert('Спасибо! Заявка успешно отправлена.');
-                    closeModal('main-modal');
+                    alert('Прекрасно! Заявка успешно отправлена на сервер.');
+                    // Находим родительский контейнер модалки и закрываем его
+                    const parentModal = form.closest('.modal-element');
+                    if (parentModal) {
+                        closeModal(parentModal.id);
+                    }
                     form.reset();
                 } else {
-                    alert('Ошибка сервера при отправке. Попробуйте еще раз.');
+                    alert('Ошибка сервера при отправке. Проверь настройки URL.');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Ошибка сети. Проверьте подключение к интернету.');
+                alert('Не удалось связаться с сервером. Проверь сеть или BACKEND_URL.');
             });
         }
     </script>
