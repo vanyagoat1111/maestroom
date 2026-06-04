@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAESTROOM — Премиальная мебель на заказ в Перми</title>
-    <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -18,22 +17,11 @@
             }
         }
     </script>
-    <!-- Google Fonts для премиальных шрифтов -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,650;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* Плавное появление страниц */
-        .page-section {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-        .page-section.active {
-            display: block;
-            opacity: 1;
-        }
         /* Кастомный скроллбар в премиум стиле */
         ::-webkit-scrollbar {
             width: 6px;
@@ -49,45 +37,36 @@
 </head>
 <body class="bg-[#0a0a0a] text-white font-sans antialiased overflow-x-hidden">
 
-    <!-- ШАПКА САЙТА (НАВИГАЦИЯ) -->
     <header class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Логотип -->
-            <button onclick="showPage('main')" class="font-serif text-2xl tracking-widest text-white hover:text-amber-500 transition-colors bg-transparent border-none cursor-pointer">
+            <a href="#page-main" class="font-serif text-2xl tracking-widest text-white hover:text-amber-500 transition-colors">
                 MAESTROOM<span class="text-amber-500">.</span>
-            </button>
+            </a>
 
-            <!-- Меню -->
             <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest font-medium">
-                <button onclick="showPage('main')" class="nav-link text-amber-500 hover:text-amber-500 transition-colors">Главная</button>
-                <button onclick="showPage('catalog')" class="nav-link text-gray-400 hover:text-white transition-colors">Каталог</button>
-                <button onclick="showPage('about')" class="nav-link text-gray-400 hover:text-white transition-colors">О нас</button>
-                <button onclick="showPage('contacts')" class="nav-link text-gray-400 hover:text-white transition-colors">Контакты</button>
+                <a href="#page-main" class="text-amber-500 hover:text-amber-500 transition-colors">Главная</a>
+                <a href="#page-catalog" class="text-gray-400 hover:text-white transition-colors">Каталог</a>
+                <a href="#page-about" class="text-gray-400 hover:text-white transition-colors">О нас</a>
+                <a href="#page-contacts" class="text-gray-400 hover:text-white transition-colors">Контакты</a>
             </nav>
 
-            <!-- Кнопка вызова модального окна -->
             <button onclick="openModal('main-modal')" class="border border-amber-500/30 hover:border-amber-500 text-amber-500 px-5 py-2.5 text-xs uppercase tracking-widest rounded-sm transition-all duration-300">
                 Рассчитать проект
             </button>
         </div>
     </header>
 
-    <!-- ОСНОВНОЙ КОНТЕНТ -->
-    <main class="pt-20">
+    <main>
 
-        <!-- 1. ГЛАВНАЯ СТРАНИЦА -->
-        <section id="page-main" class="page-section active relative h-[calc(100vh-80px)] min-h-[500px] flex items-center justify-center overflow-hidden">
-            <!-- Видео-фон -->
+        <section id="page-main" class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 bg-[#0c0c0c] z-0">
                 <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-30 filter grayscale">
                     <source src="video/bg.mp4" type="video/mp4">
                 </video>
-                <!-- Градиентное затемнение снизу и сверху -->
                 <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/50"></div>
             </div>
 
-            <!-- Контент Главной -->
-            <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+            <div class="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
                 <span class="text-amber-500 text-xs font-semibold tracking-[0.3em] uppercase block mb-4 animate-pulse">Эксклюзивная мебель ручной работы</span>
                 <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl text-white font-light tracking-tight leading-none mb-8">
                     Создаем интерьеры <br><span class="italic text-gray-400 font-normal">мирового уровня</span> в Перми
@@ -96,9 +75,9 @@
                     Дизайнерская мебель для тех, кто ценит бескомпромиссное качество, натуральные материалы и индивидуальность в каждой детали.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <button onclick="showPage('catalog')" class="w-full sm:w-auto bg-amber-700 hover:bg-amber-600 text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-colors rounded-sm shadow-lg">
+                    <a href="#page-catalog" class="w-full sm:w-auto text-center bg-amber-700 hover:bg-amber-600 text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-colors rounded-sm shadow-lg">
                         Смотреть каталог
-                    </button>
+                    </a>
                     <button onclick="openModal('main-modal')" class="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white border border-white/10 text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-all rounded-sm backdrop-blur-sm">
                         Обсудить идею
                     </button>
@@ -107,15 +86,12 @@
         </section>
 
 
-        <!-- 2. СТРАНИЦА КАТАЛОГА -->
-        <section id="page-catalog" class="page-section py-16">
+        <section id="page-catalog" class="py-24 border-t border-white/5">
             <div class="max-w-7xl mx-auto px-6">
                 <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Коллекции</span>
                 <h2 class="font-serif text-3xl sm:text-5xl text-white mb-12">Наши изделия</h2>
                 
-                <!-- Сетка товаров -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Товар 1 -->
                     <div class="group relative bg-[#111] border border-white/5 rounded-sm overflow-hidden shadow-xl hover:border-amber-500/20 transition-all duration-300">
                         <div class="h-80 overflow-hidden relative">
                             <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Премиальная кухня" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 group-hover:brightness-100">
@@ -130,7 +106,6 @@
                         </div>
                     </div>
 
-                    <!-- Товар 2 -->
                     <div class="group relative bg-[#111] border border-white/5 rounded-sm overflow-hidden shadow-xl hover:border-amber-500/20 transition-all duration-300">
                         <div class="h-80 overflow-hidden relative">
                             <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80" alt="Гостиные" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 group-hover:brightness-100">
@@ -145,7 +120,6 @@
                         </div>
                     </div>
 
-                    <!-- Товар 3 -->
                     <div class="group relative bg-[#111] border border-white/5 rounded-sm overflow-hidden shadow-xl hover:border-amber-500/20 transition-all duration-300">
                         <div class="h-80 overflow-hidden relative">
                             <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80" alt="Спальни" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 group-hover:brightness-100">
@@ -164,8 +138,7 @@
         </section>
 
 
-        <!-- 3. СТРАНИЦА О НАС -->
-        <section id="page-about" class="page-section py-16">
+        <section id="page-about" class="py-24 border-t border-white/5 bg-[#0c0c0c]/30">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div>
@@ -178,7 +151,6 @@
                             Собственные производственные цеха в Перми позволяют нам полностью контролировать процесс: от сушки редких пород древесины до ювелирной подгонки мебельной фурнитуры Blum и Hettich. Мы не идем на компромиссы за счет качества.
                         </p>
                         
-                        <!-- Мини-цифры -->
                         <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
                             <div>
                                 <div class="font-serif text-3xl text-amber-500">10+</div>
@@ -202,14 +174,12 @@
         </section>
 
 
-        <!-- 4. СТРАНИЦА КОНТАКТОВ -->
-        <section id="page-contacts" class="page-section py-16">
+        <section id="page-contacts" class="py-24 border-t border-white/5">
             <div class="max-w-7xl mx-auto px-6">
                 <span class="text-amber-500 text-xs font-semibold tracking-widest uppercase block mb-2">Обратная связь</span>
                 <h2 class="font-serif text-3xl sm:text-5xl text-white mb-12">Свяжитесь с нами</h2>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <!-- Информация -->
                     <div class="space-y-8">
                         <div>
                             <h3 class="text-amber-500 text-xs font-semibold tracking-widest uppercase mb-2">Адрес шоурума и производства</h3>
@@ -238,7 +208,6 @@
                         </div>
                     </div>
 
-                    <!-- Карта-заглушка премиум -->
                     <div class="relative h-[350px] bg-[#161616] border border-white/5 rounded-sm overflow-hidden flex flex-col items-center justify-center p-8 text-center shadow-xl group hover:border-amber-700/30 transition-all duration-300">
                         <div class="absolute inset-0 bg-cover bg-center opacity-20 filter grayscale contrast-125" style="background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80');"></div>
                         <div class="relative z-10">
@@ -256,17 +225,14 @@
 
     </main>
 
-    <!-- ПОДВАЛ САЙТА (FOOTER) -->
-    <footer class="bg-[#050505] border-t border-white/5 py-8 mt-20 text-center text-xs text-gray-500 tracking-wider">
+    <footer class="bg-[#050505] border-t border-white/5 py-8 text-center text-xs text-gray-500 tracking-wider">
         <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p>© 2026 MAESTROOM. Все права защищены.</p>
             <p class="font-light">Разработка премиум интерьеров ручной работы.</p>
         </div>
     </footer>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ЗАЯВОК -->
     <div id="main-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
-        <!-- Тело окна -->
         <div class="bg-[#111] border border-white/10 p-8 rounded-sm max-w-md w-full relative transform scale-95 transition-transform duration-300 shadow-2xl">
             <button onclick="closeModal('main-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-light transition-colors">&times;</button>
             
@@ -293,40 +259,29 @@
         </div>
     </div>
 
-    <!-- СКРИПТЫ (ЛОГИКА САЙТА) -->
     <script>
-        // Функция для бесшовного переключения страниц
-        function showPage(pageId) {
-            // Находим все секции страниц
-            const sections = document.querySelectorAll('.page-section');
+        // Подсветка активных пунктов меню при скролле страницы
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let currentSectionId = '';
             sections.forEach(sec => {
-                sec.classList.remove('active');
+                const sectionTop = sec.offsetTop;
+                if (window.scrollY >= sectionTop - 120) {
+                    currentSectionId = sec.getAttribute('id');
+                }
             });
 
-            // Включаем нужную секцию
-            const activeSection = document.getElementById('page-' + pageId);
-            if (activeSection) {
-                activeSection.classList.add('active');
-                // Поднимаем страницу вверх при переключении
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-
-            // Обновляем активный класс у ссылок в меню
-            const links = document.querySelectorAll('.nav-link');
-            links.forEach(link => {
+            navLinks.forEach(link => {
                 link.classList.remove('text-amber-500');
                 link.classList.add('text-gray-400');
-            });
-
-            // Находим нажатую кнопку через объект события и подсвечиваем её
-            if (window.event && window.event.currentTarget) {
-                const clickedBtn = window.event.currentTarget;
-                if (clickedBtn && clickedBtn.classList.contains('nav-link')) {
-                    clickedBtn.classList.remove('text-gray-400');
-                    clickedBtn.classList.add('text-amber-500');
+                if (link.getAttribute('href') === `#${currentSectionId}`) {
+                    link.classList.remove('text-gray-400');
+                    link.classList.add('text-amber-500');
                 }
-            }
-        }
+            });
+        });
 
         // Логика работы модальных окон
         function openModal(modalId) {
@@ -342,7 +297,6 @@
             }
         }
 
-        // Исправленная функция закрытия окон
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
