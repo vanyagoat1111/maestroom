@@ -686,14 +686,14 @@
         // ==========================================
 
         // Сюда ты вставишь URL, который выдаст тебе Albato, Make.com или Webhook.site
-        const CRM_WEBHOOK_URL = "ДЛЯ_ТЕСТА_ВСТАВЬ_СЮДА_URL";
+        const CRM_WEBHOOK_URL = "https://webhook.site/eefad7dd-e999-4954-bf98-b89407927660";
 
         /**
          * Универсальная функция отправки заявки на Webhook (в CRM и Telegram)
          * @param {Object} orderData - Объект с данными клиента и заказа
          */
         async function sendOrderToCRM(orderData) {
-            if (CRM_WEBHOOK_URL === "https://webhook.site/eefad7dd-e999-4954-bf98-b89407927660") {
+            if (CRM_WEBHOOK_URL === "ДЛЯ_ТЕСТА_ВСТАВЬ_СЮДА_URL") {
                 alert("Ошибка: Сначала создайте тестовый URL и вставьте его в переменную CRM_WEBHOOK_URL в коде!");
                 return;
             }
