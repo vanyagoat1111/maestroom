@@ -655,5 +655,93 @@
             document.body.style.overflow = '';
         }
     </script>
+<script>
+        // ФУНКЦИЯ ПЕРЕКЛЮЧЕНИЯ СТРАНИЦ (у тебя она уже частично работает)
+        function showPage(pageId) {
+            // Скрываем все секции
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Показываем нужную
+            const target = document.getElementById('page-' + pageId);
+            if (target) {
+                target.classList.add('active');
+            }
+            // Прокручиваем наверх при смене страницы
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ВРЕМЕННЫЕ ФУНКЦИИ ДЛЯ МОДАЛЬНЫХ ОКОН (чтобы код не выдавал ошибки)
+        function openModal(modalId) {
+            console.log('Открытие окна:', modalId);
+            // Здесь будет твоя логика открытия поп-апа (добавление класса flex/block)
+            // Для теста мы можем сразу симулировать отправку, как будто клиент заполнил форму:
+            if(confirm(`Симуляция: Открыть окно "${modalId}" и отправить тестовую заявку в CRM?`)) {
+                simulateFormSubmit(modalId);
+            }
+        }
+
+        // ==========================================
+        // ГЛАВНАЯ ТЕХНИЧЕСКАЯ ЧАСТЬ: ИНТЕГРАЦИЯ API
+        // ==========================================
+
+        // Сюда ты вставишь URL, который выдаст тебе Albato, Make.com или Webhook.site
+        const CRM_WEBHOOK_URL = "ДЛЯ_ТЕСТА_ВСТАВЬ_СЮДА_URL";
+
+        /**
+         * Универсальная функция отправки заявки на Webhook (в CRM и Telegram)
+         * @param {Object} orderData - Объект с данными клиента и заказа
+         */
+        async function sendOrderToCRM(orderData) {
+            if (CRM_WEBHOOK_URL === "https://webhook.site/eefad7dd-e999-4954-bf98-b89407927660") {
+                alert("Ошибка: Сначала создайте тестовый URL и вставьте его в переменную CRM_WEBHOOK_URL в коде!");
+                return;
+            }
+
+            try {
+                // Отправляем данные методом POST в формате JSON
+                const response = await fetch(CRM_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                if (response.ok) {
+                    alert(`Благодарим, ${orderData.name}! Заявка на "${orderData.project_type}" успешно передана дизайнеру. Ожидайте звонка.`);
+                    // Здесь можно перенаправить пользователя на страницу спасибо:
+                    // showPage('success');
+                } else {
+                    throw new Error("Сервер вернул ошибку при отправке");
+                }
+            } catch (error) {
+                console.error("Ошибка отправки в CRM:", error);
+                alert("Произошла техническая ошибка при отправке. Пожалуйста, свяжитесь с нами по телефону.");
+            }
+        }
+
+        /**
+         * Функция-перехватчик формы (симуляция того, что клиент заполнил поля в модальном окне)
+         */
+        function simulateFormSubmit(modalType) {
+            // Формируем структуру данных, которую ждет CRM-система
+            const testOrder = {
+                source: "Официальный сайт Maestroom (GitHub Pages)",
+                date: new Date().toLocaleString("ru-RU"),
+                name: "Иван Тестовый",
+                phone: "+7 (999) 111-22-33",
+                project_type: modalType === 'kitchen-modal' ? "Умная кухня" : "Премиальный диван",
+                details: {
+                    material: "Выбран премиум-сегмент текстиля/фасадов",
+                    estimated_budget: modalType === 'kitchen-modal' ? "от 310 000 ₽" : "от 205 000 ₽",
+                    comment: "Заявка создана через кнопку быстрого расчета на сайте."
+                }
+            };
+
+            console.log("Отправка объекта в CRM коннектор...", testOrder);
+            sendOrderToCRM(testOrder);
+        }
+    </script>
 </body>
 </html>
